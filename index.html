@@ -3,679 +3,1017 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Shark Broadcast — Telecom · Video · OTT · WiFi · Satélite</title>
-  <meta name="description" content="Shark Broadcast: integraciones de video, apps OTT/FAST, soluciones de redes WiFi, operador OMV, FTTH y satélite para empresas y gobiernos en Latinoamérica."/>
+  <title>Shark Broadcast — Infraestructura de Medios y Telecomunicaciones</title>
+  <meta name="description" content="Shark Broadcast: integraciones de video, apps OTT/FAST, soluciones WiFi para exteriores, operador OMV, FTTH y satélite para empresas y gobiernos en Latinoamérica."/>
+  <meta property="og:title" content="Shark Broadcast"/>
+  <meta property="og:url" content="https://sharkbroadcast.com"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Expanded:wght@600;700;800;900&family=Archivo+Narrow:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
-    --red:#e8192c; --red-glow:rgba(232,25,44,.35); --red-dim:rgba(232,25,44,.1);
-    --bg:#090c14; --bg2:#0e1220; --bg3:#131828; --surface:#192035;
-    --border:rgba(255,255,255,.07); --border2:rgba(255,255,255,.12);
-    --text:#edf0f8; --muted:#6b7591; --muted2:#9aa3be;
-    --head:'Barlow Condensed',sans-serif; --body:'Barlow',sans-serif;
+    /* Premium palette — deeper, richer */
+    --red:       #ff2336;
+    --red-deep:  #d40d1f;
+    --red-blood: #8f0a16;
+    --red-glow:  rgba(255,35,54,.4);
+    --red-dim:   rgba(255,35,54,.08);
+    --red-line:  rgba(255,35,54,.18);
+
+    --ink:       #06080e;   /* near black base */
+    --ink2:      #0a0d16;
+    --ink3:      #0f131f;
+    --panel:     #111622;
+    --panel2:    #161c2b;
+    --hairline:  rgba(255,255,255,.06);
+    --hairline2: rgba(255,255,255,.1);
+
+    --white:     #f4f6fc;
+    --silver:    #aab2c8;
+    --gray:      #5f6880;
+    --gray-deep: #3a4254;
+
+    --display: 'Archivo Expanded', sans-serif;
+    --body:    'Archivo', sans-serif;
+    --mono:    'Archivo Narrow', sans-serif;
   }
-  html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:16px;line-height:1.6;overflow-x:hidden}
-  ::-webkit-scrollbar{width:3px} ::-webkit-scrollbar-thumb{background:var(--red)}
 
-  .eyebrow{font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:10px}
-  .eyebrow::after{content:'';display:block;width:36px;height:1px;background:var(--red)}
-  .h2{font-family:var(--head);font-weight:900;text-transform:uppercase;font-size:clamp(36px,5vw,70px);line-height:.93;letter-spacing:-.01em}
-  .h2 em{font-style:normal;color:var(--red)}
-  .muted{color:var(--muted2);font-size:15px;line-height:1.8}
-  .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--head);font-weight:700;font-size:15px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:14px 34px;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:.2s;cursor:pointer;border:none;outline:none}
-  .btn-red{background:var(--red);color:#fff}
-  .btn-red:hover{background:#ff2a3d;transform:translateY(-2px);box-shadow:0 10px 36px var(--red-glow)}
-  .btn-outline{background:transparent;color:var(--text);border:1px solid var(--border2);clip-path:none}
-  .btn-outline:hover{border-color:var(--red);color:var(--red)}
-  section{padding:110px 64px}
-  .fade-up{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
-  .fade-up.in{opacity:1;transform:translateY(0)}
-  .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink);
+    color: var(--white);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -.01em;
+  }
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--ink); }
+  ::-webkit-scrollbar-thumb { background: var(--red-deep); }
+  ::selection { background: var(--red); color: #fff; }
 
-  /* NAV */
-  nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:20px 64px;transition:background .4s,padding .4s,border-color .4s;border-bottom:1px solid transparent}
-  nav.sc{background:rgba(9,12,20,.93);backdrop-filter:blur(20px);padding:13px 64px;border-bottom-color:var(--border)}
-  .logo{display:flex;align-items:center;gap:11px;text-decoration:none}
-  .logo-mark{width:38px;height:38px}
-  .logo-text{font-family:var(--head);font-weight:900;font-size:21px;letter-spacing:.04em;color:var(--text);line-height:1}
-  .logo-text span{display:block;font-size:10px;font-weight:400;letter-spacing:.22em;color:var(--muted)}
-  .nav-links{display:flex;align-items:center;gap:28px;list-style:none}
-  .nav-links a{color:var(--muted);font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:color .2s}
-  .nav-links a:hover{color:var(--text)}
-  .nav-cta{background:var(--red);color:#fff;text-decoration:none;font-family:var(--head);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:10px 24px;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);transition:.2s}
-  .nav-cta:hover{background:#ff2a3d}
+  /* Film grain overlay — premium texture */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: .035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
 
-  /* HERO */
-  #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
-  .hero-noise{position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 75% 50%,rgba(232,25,44,.1) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 15% 70%,rgba(232,25,44,.05) 0%,transparent 60%),var(--bg)}
-  .hero-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:70px 70px;mask-image:radial-gradient(ellipse 100% 90% at 50% 50%,black,transparent 85%)}
-  .hero-stripes{position:absolute;inset:0;overflow:hidden;opacity:.025}
-  .hero-stripes::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:repeating-linear-gradient(60deg,var(--red),var(--red) 1px,transparent 1px,transparent 60px);animation:drift 25s linear infinite}
-  @keyframes drift{to{transform:translateX(60px)}}
-  .hero-visual{position:absolute;right:5%;top:50%;transform:translateY(-50%);width:clamp(280px,35vw,560px);aspect-ratio:1;pointer-events:none}
-  .orbit{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(232,25,44,.15);animation:spin-orbit var(--sp) linear infinite}
-  .orbit::after{content:'';position:absolute;top:50%;left:-4px;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 12px var(--red)}
-  @keyframes spin-orbit{to{transform:rotate(360deg)}}
-  .hero-content{position:relative;z-index:2;padding:130px 64px 100px;max-width:820px}
-  .hero-tag{display:inline-flex;align-items:center;gap:10px;background:rgba(232,25,44,.1);border:1px solid rgba(232,25,44,.3);padding:6px 16px;font-family:var(--head);font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:28px}
-  .hero-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:blink 1.3s ease-in-out infinite}
-  @keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
-  .hero-h1{font-family:var(--head);font-weight:900;font-size:clamp(52px,9vw,120px);line-height:.88;text-transform:uppercase;letter-spacing:-.02em;margin-bottom:28px}
-  .hero-h1 em{font-style:normal;color:var(--red);display:block}
-  .hero-h1 .outline{-webkit-text-stroke:1px rgba(255,255,255,.2);color:transparent}
-  .hero-sub{font-size:17px;font-weight:300;color:var(--muted2);max-width:500px;line-height:1.75;margin-bottom:44px}
-  .hero-btns{display:flex;gap:14px;flex-wrap:wrap}
-  .hero-products{position:absolute;bottom:0;left:0;right:0;z-index:2;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(5,1fr);background:rgba(9,12,20,.6);backdrop-filter:blur(12px)}
-  .hprod{padding:20px 22px;border-right:1px solid var(--border);display:flex;align-items:center;gap:12px;cursor:default;transition:background .2s}
-  .hprod:last-child{border-right:none}
-  .hprod:hover{background:rgba(232,25,44,.07)}
-  .hprod-icon{width:34px;height:34px;min-width:34px;background:var(--red-dim);border:1px solid rgba(232,25,44,.25);display:flex;align-items:center;justify-content:center}
-  .hprod-icon svg{width:16px;height:16px;stroke:var(--red);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-  .hprod-name{font-family:var(--head);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.04em}
-  .hprod-cat{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+  /* ─── TYPE UTILITIES ─── */
+  .kicker {
+    font-family: var(--mono);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: .35em; text-transform: uppercase;
+    color: var(--red);
+    display: inline-flex; align-items: center; gap: 14px;
+  }
+  .kicker::before {
+    content: ''; display: block;
+    width: 28px; height: 1px;
+    background: linear-gradient(90deg, var(--red), transparent);
+  }
+  .display {
+    font-family: var(--display);
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: .9;
+    letter-spacing: -.02em;
+  }
+  .lede { color: var(--silver); font-size: 16px; line-height: 1.75; font-weight: 400; }
 
-  /* TICKER */
-  .ticker-wrap{background:var(--red);height:38px;display:flex;align-items:center;overflow:hidden;position:relative;z-index:10}
-  .ticker{display:flex;white-space:nowrap;animation:tick 28s linear infinite}
-  .ticker-item{font-family:var(--head);font-weight:700;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#fff;padding:0 32px}
-  .ticker-sep{opacity:.4}
-  @keyframes tick{to{transform:translateX(-50%)}}
+  .btn {
+    display: inline-flex; align-items: center; gap: 11px;
+    font-family: var(--body); font-weight: 600;
+    font-size: 14px; letter-spacing: .02em;
+    text-decoration: none; cursor: pointer;
+    padding: 15px 32px; border: none; outline: none;
+    position: relative; overflow: hidden;
+    transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s, background .3s, color .3s, border-color .3s;
+  }
+  .btn-primary {
+    background: var(--red);
+    color: #fff;
+    box-shadow: 0 1px 0 rgba(255,255,255,.2) inset, 0 8px 30px var(--red-glow);
+  }
+  .btn-primary::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,.25) 50%, transparent 80%);
+    transform: translateX(-130%); transition: transform .7s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 1px 0 rgba(255,255,255,.25) inset, 0 14px 40px var(--red-glow); }
+  .btn-primary:hover::after { transform: translateX(130%); }
+  .btn-ghost {
+    background: rgba(255,255,255,.02);
+    color: var(--white);
+    border: 1px solid var(--hairline2);
+    backdrop-filter: blur(8px);
+  }
+  .btn-ghost:hover { border-color: var(--red); color: var(--red); background: var(--red-dim); }
 
-  /* PRODUCTS */
-  #products{background:var(--bg2)}
-  .products-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:72px}
-  .products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
-  .prod-card{background:var(--bg3);padding:48px 36px;position:relative;overflow:hidden;transition:background .3s;cursor:default}
-  .prod-card:hover{background:var(--surface)}
-  .prod-card.featured{background:var(--surface);grid-column:span 2}
-  .prod-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1)}
-  .prod-card:hover::before,.prod-card.featured::before{transform:scaleX(1)}
-  .prod-num{font-family:var(--head);font-weight:900;font-size:80px;color:rgba(255,255,255,.03);position:absolute;top:12px;right:20px;line-height:1;user-select:none}
-  .prod-icon{width:54px;height:54px;background:var(--red-dim);border:1px solid rgba(232,25,44,.2);display:flex;align-items:center;justify-content:center;margin-bottom:28px}
-  .prod-icon svg{width:24px;height:24px;stroke:var(--red);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-  .prod-card h3{font-family:var(--head);font-weight:900;font-size:26px;text-transform:uppercase;letter-spacing:.02em;margin-bottom:8px}
-  .prod-card .cat{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:16px}
-  .prod-card p{color:var(--muted2);font-size:14px;line-height:1.8}
-  .prod-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:22px}
-  .prod-features li{font-size:13px;color:var(--muted2);display:flex;align-items:center;gap:10px}
-  .prod-features li::before{content:'';width:16px;height:16px;min-width:16px;background:var(--red-dim) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6l2.5 2.5 4.5-5' stroke='%23e8192c' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center;border:1px solid rgba(232,25,44,.3)}
-  .prod-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:20px}
-  .tag{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);padding:3px 10px}
-  .featured-inner{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  section { padding: 130px 56px; position: relative; }
+  .wrap { max-width: 1340px; margin: 0 auto; }
 
-  /* BAND */
-  .band{background:var(--red);padding:56px 64px;display:grid;grid-template-columns:repeat(4,1fr)}
-  .band-item{text-align:center;padding:16px;border-right:1px solid rgba(255,255,255,.2)}
-  .band-item:last-child{border-right:none}
-  .band-num{font-family:var(--head);font-weight:900;font-size:clamp(42px,5vw,72px);color:#fff;line-height:1}
-  .band-label{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-top:6px}
+  /* Reveal animations */
+  .reveal { opacity: 0; transform: translateY(34px); transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .dl1{transition-delay:.08s}.dl2{transition-delay:.16s}.dl3{transition-delay:.24s}
+  .dl4{transition-delay:.32s}.dl5{transition-delay:.4s}.dl6{transition-delay:.48s}
+
+  /* ════════════════ NAV ════════════════ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 56px;
+    transition: all .5s cubic-bezier(.16,1,.3,1);
+    border-bottom: 1px solid transparent;
+  }
+  nav.sc {
+    padding: 14px 56px;
+    background: rgba(6,8,14,.7);
+    backdrop-filter: blur(24px) saturate(140%);
+    border-bottom-color: var(--hairline);
+  }
+  .brand { display: flex; align-items: center; gap: 13px; text-decoration: none; }
+  .brand-mark { width: 40px; height: 40px; filter: drop-shadow(0 4px 12px var(--red-glow)); transition: transform .4s; }
+  .brand:hover .brand-mark { transform: scale(1.06) rotate(-3deg); }
+  .brand-name { font-family: var(--display); font-weight: 800; font-size: 20px; letter-spacing: -.02em; color: var(--white); line-height: .95; }
+  .brand-name span { display: block; font-family: var(--mono); font-size: 9.5px; font-weight: 500; letter-spacing: .3em; color: var(--gray); text-transform: uppercase; margin-top: 2px; }
+
+  .nav-menu { display: flex; align-items: center; gap: 38px; list-style: none; }
+  .nav-menu a { color: var(--silver); font-size: 13px; font-weight: 500; text-decoration: none; transition: color .25s; position: relative; padding: 4px 0; }
+  .nav-menu a::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 1px; background: var(--red); transition: width .3s; }
+  .nav-menu a:hover { color: var(--white); }
+  .nav-menu a:hover::after { width: 100%; }
+  .nav-menu a.on { color: var(--white); }
+  .nav-menu a.on::after { width: 100%; }
+  .nav-action {
+    background: var(--red); color: #fff; text-decoration: none;
+    font-size: 13px; font-weight: 600; padding: 11px 22px;
+    box-shadow: 0 6px 20px var(--red-glow);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .nav-action:hover { transform: translateY(-1px); box-shadow: 0 10px 28px var(--red-glow); }
+  .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+  .nav-toggle span { width: 24px; height: 2px; background: var(--white); transition: .3s; }
+
+  /* ════════════════ HERO ════════════════ */
+  #hero {
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 130px 56px 0;
+  }
+  /* Layered atmospheric background */
+  .hero-atmos { position: absolute; inset: 0; z-index: 0; }
+  .hero-atmos .glow1 {
+    position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
+    width: 70vw; height: 60vw; max-width: 1100px; max-height: 800px;
+    background: radial-gradient(circle, rgba(255,35,54,.12) 0%, rgba(255,35,54,.035) 38%, transparent 65%);
+    border-radius: 50%; filter: blur(30px);
+    animation: breathe 9s ease-in-out infinite;
+  }
+  .hero-atmos .glow2 {
+    position: absolute; bottom: -10%; left: -5%;
+    width: 40vw; height: 40vw; max-width: 600px; max-height: 600px;
+    background: radial-gradient(circle, rgba(143,10,22,.16) 0%, transparent 60%);
+    border-radius: 50%; filter: blur(40px);
+  }
+  @keyframes breathe { 0%,100%{opacity:1} 50%{opacity:.78} }
+
+  /* Perspective grid floor */
+  .hero-floor {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 38%;
+    background-image: linear-gradient(rgba(255,35,54,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,35,54,.06) 1px, transparent 1px);
+    background-size: 70px 70px;
+    transform: perspective(400px) rotateX(70deg);
+    transform-origin: bottom;
+    mask-image: linear-gradient(to top, black 0%, transparent 90%);
+    opacity: .4;
+  }
+
+  .hero-inner { position: relative; z-index: 2; max-width: 1180px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; align-items: center; padding-bottom: 130px; }
+  .hero-top { text-align: center; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 11px;
+    background: rgba(255,35,54,.06); border: 1px solid var(--red-line);
+    padding: 8px 18px; border-radius: 100px;
+    font-family: var(--mono); font-size: 11.5px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase; color: var(--red);
+    margin-bottom: 24px; backdrop-filter: blur(8px);
+  }
+  .hero-badge .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--red); position: relative; }
+  .hero-badge .pulse::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 1px solid var(--red); animation: pulse-out 2s ease-out infinite; }
+  @keyframes pulse-out { 0%{transform:scale(.6);opacity:1} 100%{transform:scale(1.8);opacity:0} }
+
+  .hero-title { font-family: var(--display); font-weight: 800; font-size: clamp(42px, 7vw, 104px); line-height: .88; letter-spacing: -.035em; text-transform: uppercase; margin-bottom: 22px; }
+  .hero-title .line { display: block; overflow: hidden; }
+  .hero-title .line > span { display: inline-block; transform: translateY(110%); animation: rise .9s cubic-bezier(.16,1,.3,1) forwards; }
+  .hero-title .line:nth-child(2) > span { animation-delay: .12s; }
+  @keyframes rise { to { transform: translateY(0); } }
+  .hero-title .accent {
+    background: linear-gradient(105deg, var(--red) 0%, var(--red-deep) 35%, #ff6b78 50%, var(--red-deep) 65%, var(--red) 100%);
+    background-size: 220% auto;
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    animation: shine 5.5s linear infinite;
+  }
+  @keyframes shine { to { background-position: -220% center; } }
+
+  .hero-sub { font-size: 17px; font-weight: 400; color: var(--silver); max-width: 600px; line-height: 1.7; margin: 0 auto 38px; opacity: 0; animation: fade-in 1s ease forwards .5s; }
+  @keyframes fade-in { to { opacity: 1; } }
+
+  /* VIDEO CENTERPIECE */
+  .hero-video { width: 100%; max-width: 1100px; margin: 0 auto 40px; position: relative; }
+  .hv-aura { position: absolute; inset: -8% -6%; background: radial-gradient(ellipse 62% 58% at 50% 62%, var(--red-glow), transparent 70%); filter: blur(54px); z-index: 0; animation: aura 5.5s ease-in-out infinite; pointer-events: none; }
+  @keyframes aura { 0%,100%{opacity:.35} 50%{opacity:.7} }
+  @keyframes hv-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+  .hv-frame {
+    position: relative; z-index: 1;
+    animation: hv-float 8s ease-in-out infinite;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #0b0e15;
+    border: 1px solid var(--hairline2);
+    overflow: hidden;
+    box-shadow: 0 50px 120px -30px rgba(0,0,0,.9), 0 0 80px -40px var(--red-glow), 0 0 0 1px rgba(255,255,255,.02) inset;
+  }
+  .hv-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+  /* corner accents */
+  .hv-corner { position: absolute; width: 26px; height: 26px; z-index: 4; pointer-events: none; }
+  .hv-corner.tl { top: 14px; left: 14px; border-top: 2px solid var(--red); border-left: 2px solid var(--red); }
+  .hv-corner.tr { top: 14px; right: 14px; border-top: 2px solid var(--red); border-right: 2px solid var(--red); }
+  .hv-corner.bl { bottom: 14px; left: 14px; border-bottom: 2px solid var(--red); border-left: 2px solid var(--red); }
+  .hv-corner.br { bottom: 14px; right: 14px; border-bottom: 2px solid var(--red); border-right: 2px solid var(--red); }
+  .hv-label {
+    position: absolute; top: 18px; left: 50%; transform: translateX(-50%); z-index: 4;
+    display: flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 10.5px; font-weight: 600; letter-spacing: .25em; text-transform: uppercase;
+    color: rgba(244,246,252,.85); background: rgba(6,8,14,.5); padding: 5px 14px; border: 1px solid var(--hairline);
+    backdrop-filter: blur(8px); pointer-events: none;
+  }
+  .hv-rec { width: 7px; height: 7px; border-radius: 50%; background: var(--red); animation: recblink 1.2s ease-in-out infinite; }
+  @keyframes recblink { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; opacity: 0; animation: fade-in 1s ease forwards .65s; }
+
+  /* Product index strip */
+  .hero-index {
+    position: absolute; bottom: 0; left: 0; right: 0; z-index: 5;
+    border-top: 1px solid var(--hairline);
+    background: linear-gradient(180deg, transparent, rgba(6,8,14,.6));
+    backdrop-filter: blur(16px);
+    display: grid; grid-template-columns: repeat(5, 1fr);
+  }
+  .hidx {
+    padding: 24px 28px; border-right: 1px solid var(--hairline);
+    display: flex; align-items: center; gap: 14px;
+    position: relative; overflow: hidden; transition: background .3s;
+    text-decoration: none;
+  }
+  .hidx:last-child { border-right: none; }
+  .hidx::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--red); transform: translateX(-100%); transition: transform .4s; }
+  .hidx:hover { background: rgba(255,35,54,.05); }
+  .hidx:hover::before { transform: translateX(0); }
+  .hidx-no { font-family: var(--mono); font-size: 11px; color: var(--red); letter-spacing: .15em; }
+  .hidx-tx { font-family: var(--body); font-weight: 600; font-size: 13px; color: var(--white); line-height: 1.2; }
+  .hidx-tx small { display: block; font-weight: 400; font-size: 10.5px; color: var(--gray); letter-spacing: .05em; margin-top: 3px; }
+
+  /* ════════════════ MARQUEE ════════════════ */
+  .marquee { background: var(--red); overflow: hidden; height: 46px; display: flex; align-items: center; position: relative; z-index: 10; box-shadow: 0 0 40px var(--red-glow); }
+  .marquee-track { display: flex; white-space: nowrap; animation: slide 30s linear infinite; }
+  .marquee-item { font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #fff; padding: 0 34px; display: flex; align-items: center; gap: 34px; }
+  .marquee-item::after { content: '✦'; opacity: .45; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+
+  /* ════════════════ PRODUCTS ════════════════ */
+  #products { background: linear-gradient(180deg, var(--ink) 0%, var(--ink2) 100%); }
+  .sec-head { display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: end; margin-bottom: 80px; }
+  .sec-head h2 { margin-top: 22px; font-size: clamp(34px, 4.6vw, 68px); }
+  .sec-head h2 .accent { color: var(--red); }
+  .sec-head-aside { padding-bottom: 8px; }
+
+  .pgrid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; }
+  .pcard {
+    position: relative; overflow: hidden;
+    background: linear-gradient(165deg, var(--panel) 0%, var(--ink3) 100%);
+    border: 1px solid var(--hairline);
+    padding: 42px 36px;
+    transition: transform .5s cubic-bezier(.16,1,.3,1), border-color .5s, box-shadow .5s;
+  }
+  .pcard.lg { grid-column: span 4; }
+  .pcard.sm { grid-column: span 2; }
+  .pcard.md { grid-column: span 3; }
+  .pcard:hover { transform: translateY(-6px); border-color: var(--red-line); box-shadow: 0 30px 60px -20px rgba(0,0,0,.7), 0 0 40px -25px var(--red-glow); }
+  /* corner glow */
+  .pcard::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; background: radial-gradient(circle, var(--red-dim), transparent 70%); opacity: 0; transition: opacity .5s; }
+  .pcard:hover::before { opacity: 1; }
+  /* top accent */
+  .pcard::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--red), transparent 60%); transform: scaleX(0); transform-origin: left; transition: transform .6s cubic-bezier(.16,1,.3,1); }
+  .pcard:hover::after { transform: scaleX(1); }
+
+  .pcard-no { position: absolute; top: 20px; right: 28px; font-family: var(--display); font-weight: 900; font-size: 60px; line-height: 1; color: rgba(255,255,255,.025); user-select: none; }
+  .pcard-ico { width: 56px; height: 56px; border: 1px solid var(--red-line); background: var(--red-dim); display: flex; align-items: center; justify-content: center; margin-bottom: 28px; position: relative; }
+  .pcard-ico svg { width: 26px; height: 26px; stroke: var(--red); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .pcard h3 { font-family: var(--display); font-weight: 700; font-size: 23px; letter-spacing: -.02em; text-transform: uppercase; margin-bottom: 8px; }
+  .pcard .tag-cat { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--red); margin-bottom: 18px; }
+  .pcard p { color: var(--silver); font-size: 14px; line-height: 1.75; }
+  .pchips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 22px; }
+  .chip { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--gray); border: 1px solid var(--hairline); padding: 4px 11px; transition: .25s; }
+  .pcard:hover .chip { border-color: var(--hairline2); color: var(--silver); }
+
+  .pcard-split { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+  .pfeatures { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+  .pfeatures li { font-size: 13.5px; color: var(--silver); display: flex; align-items: flex-start; gap: 11px; line-height: 1.5; }
+  .pfeatures li svg { width: 16px; height: 16px; min-width: 16px; stroke: var(--red); fill: none; stroke-width: 2; margin-top: 3px; }
+
+  /* ════════════════ METRICS ════════════════ */
+  .metrics { position: relative; overflow: hidden; background: linear-gradient(120deg, var(--red-blood) 0%, var(--red-deep) 50%, var(--red) 100%); padding: 70px 56px; }
+  .metrics::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(0,0,0,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.08) 1px, transparent 1px); background-size: 40px 40px; opacity: .5; }
+  .metrics-grid { position: relative; max-width: 1340px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .metric { text-align: center; padding: 14px; border-right: 1px solid rgba(255,255,255,.18); }
+  .metric:last-child { border-right: none; }
+  .metric-n { font-family: var(--display); font-weight: 900; font-size: clamp(44px, 5.5vw, 80px); line-height: 1; color: #fff; text-shadow: 0 4px 20px rgba(0,0,0,.2); }
+  .metric-l { font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.72); margin-top: 10px; }
+
+  /* ════════════════ FEATURE SECTIONS (shared) ════════════════ */
+  .feat { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; max-width: 1340px; margin: 0 auto; }
+  .feat-text h2 { font-size: clamp(32px, 4.4vw, 64px); margin: 22px 0 24px; }
+  .feat-text h2 .accent { color: var(--red); }
+  .feat-text .lede { margin-bottom: 36px; }
 
   /* OTT */
-  #ott{background:var(--bg);position:relative;overflow:hidden}
-  .ott-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 30% 50%,rgba(232,25,44,.08) 0%,transparent 65%)}
-  .ott-inner{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-  .ott-screen{position:relative;aspect-ratio:16/9;background:var(--bg3);border:1px solid var(--border2);overflow:hidden}
-  .ott-screen-glow{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(232,25,44,.12),transparent 70%)}
-  .ott-channels{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:8px;padding:24px}
-  .ott-ch{background:rgba(255,255,255,.04);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:800;font-size:12px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;position:relative;overflow:hidden}
-  .ott-ch.live{border-color:rgba(232,25,44,.4);color:var(--text)}
-  .ott-ch.live::after{content:'LIVE';position:absolute;top:6px;right:6px;font-size:8px;font-weight:700;letter-spacing:.15em;background:var(--red);color:#fff;padding:1px 5px}
-  .ott-ch-bar{position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);animation:progress 4s ease-in-out infinite;transform-origin:left}
-  @keyframes progress{0%{transform:scaleX(0)}70%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
-  .ott-badge{position:absolute;bottom:-16px;right:-16px;background:var(--red);padding:18px 20px;text-align:center}
-  .ott-badge-n{font-family:var(--head);font-weight:900;font-size:36px;color:#fff;line-height:1}
-  .ott-badge-l{font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-top:3px}
-  .ott-text .eyebrow{margin-bottom:20px}
-  .ott-text .h2{margin-bottom:20px}
-  .ott-text .muted{margin-bottom:32px}
-  .ott-specs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
-  .ott-spec{background:var(--bg3);border:1px solid var(--border);padding:20px}
-  .ott-spec-v{font-family:var(--head);font-weight:800;font-size:22px;color:var(--red)}
-  .ott-spec-l{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+  #ott { background: var(--ink2); overflow: hidden; }
+  #ott .glow-side { position: absolute; left: -10%; top: 50%; transform: translateY(-50%); width: 50vw; height: 50vw; max-width: 700px; max-height: 700px; background: radial-gradient(circle, rgba(255,35,54,.07), transparent 60%); pointer-events: none; }
+  .screen-frame { position: relative; padding-bottom: 22px; }
+  .screen { position: relative; aspect-ratio: 16/9; background: linear-gradient(160deg, var(--panel) 0%, var(--ink) 100%); border: 1px solid var(--hairline2); overflow: hidden; box-shadow: 0 40px 80px -30px rgba(0,0,0,.8); }
+  .screen-glow { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 45%, rgba(255,35,54,.1), transparent 70%); }
+  .channels { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3,1fr); grid-template-rows: repeat(2,1fr); gap: 10px; padding: 26px; }
+  .ch { background: rgba(255,255,255,.03); border: 1px solid var(--hairline); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 700; font-size: 12px; letter-spacing: .04em; color: var(--gray); text-transform: uppercase; position: relative; overflow: hidden; transition: .4s; }
+  .ch.on { border-color: var(--red-line); color: var(--white); background: rgba(255,35,54,.04); }
+  .ch.on::before { content: 'EN VIVO'; position: absolute; top: 8px; right: 8px; font-family: var(--mono); font-size: 8px; font-weight: 600; letter-spacing: .12em; background: var(--red); color: #fff; padding: 2px 6px; }
+  .ch .prog { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--red); transform: scaleX(0); transform-origin: left; animation: prog 4.5s ease-in-out infinite; }
+  @keyframes prog { 0%{transform:scaleX(0)} 75%{transform:scaleX(1)} 100%{transform:scaleX(1);opacity:0} }
+  .screen-tag { position: absolute; bottom: -18px; right: -14px; background: var(--red); padding: 18px 22px; box-shadow: 0 16px 40px var(--red-glow); }
+  .screen-tag-n { font-family: var(--display); font-weight: 900; font-size: 34px; color: #fff; line-height: 1; }
+  .screen-tag-l { font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.78); margin-top: 4px; }
+
+  .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .spec { background: linear-gradient(160deg, var(--panel), var(--ink3)); border: 1px solid var(--hairline); padding: 22px; transition: border-color .3s; }
+  .spec:hover { border-color: var(--red-line); }
+  .spec-v { font-family: var(--display); font-weight: 700; font-size: 20px; color: var(--red); letter-spacing: -.01em; }
+  .spec-l { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gray); margin-top: 4px; }
 
   /* WIFI */
-  #connectivity{background:var(--bg2)}
-  .connectivity-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:72px;align-items:center}
-  .connectivity-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
-  .conn-card{background:var(--bg3);border:1px solid var(--border);padding:28px;transition:.3s}
-  .conn-card:hover{border-color:rgba(232,25,44,.35);transform:translateY(-3px)}
-  .conn-card svg{width:22px;height:22px;stroke:var(--red);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;margin-bottom:14px}
-  .conn-card h4{font-family:var(--head);font-weight:800;font-size:16px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
-  .conn-card p{color:var(--muted2);font-size:12px;line-height:1.7}
-  .map-wrap{position:relative}
-  .map-visual{background:var(--bg3);border:1px solid var(--border);aspect-ratio:4/3;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-  .map-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--red);animation:map-ping 2s ease-out infinite}
-  .map-dot::before{content:'';position:absolute;inset:-6px;border-radius:50%;border:1px solid var(--red);animation:map-ping2 2s ease-out infinite}
-  @keyframes map-ping{0%{box-shadow:0 0 0 0 var(--red-glow)}100%{box-shadow:0 0 0 20px transparent}}
-  @keyframes map-ping2{0%{opacity:.6;transform:scale(1)}100%{opacity:0;transform:scale(2.5)}}
-  .map-label{font-family:var(--head);font-weight:900;font-size:48px;text-transform:uppercase;color:rgba(255,255,255,.04);letter-spacing:-.02em}
-  .metepec-badge{position:absolute;top:-16px;left:-16px;background:var(--bg);border:1px solid var(--border2);padding:14px 18px}
-  .metepec-badge-n{font-family:var(--head);font-weight:900;font-size:20px;color:var(--red);line-height:1}
-  .metepec-badge-l{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+  #wifi { background: var(--ink); overflow: hidden; }
+  .wifi-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 38px; }
+  .wcard { background: linear-gradient(160deg, var(--panel), var(--ink3)); border: 1px solid var(--hairline); padding: 28px; transition: transform .4s, border-color .4s; }
+  .wcard:hover { transform: translateY(-4px); border-color: var(--red-line); }
+  .wcard svg { width: 24px; height: 24px; stroke: var(--red); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 16px; }
+  .wcard h4 { font-family: var(--display); font-weight: 700; font-size: 16px; text-transform: uppercase; letter-spacing: -.01em; margin-bottom: 8px; }
+  .wcard p { color: var(--silver); font-size: 12.5px; line-height: 1.7; }
+
+  .coverage { position: relative; }
+  .coverage-vis { position: relative; aspect-ratio: 4/3; background: linear-gradient(160deg, var(--panel) 0%, var(--ink) 100%); border: 1px solid var(--hairline2); overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 40px 80px -30px rgba(0,0,0,.8); }
+  .coverage-vis::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(var(--hairline) 1px, transparent 1px), linear-gradient(90deg, var(--hairline) 1px, transparent 1px); background-size: 44px 44px; opacity: .4; }
+  .cov-label { font-family: var(--display); font-weight: 900; font-size: 46px; text-transform: uppercase; color: rgba(255,255,255,.035); letter-spacing: -.03em; }
+  .node { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: var(--red); box-shadow: 0 0 14px var(--red); }
+  .node::before { content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 1px solid var(--red); animation: node-ring 2.4s ease-out infinite; }
+  .node::after { content: ''; position: absolute; inset: -5px; border-radius: 50%; background: var(--red-glow); animation: node-pulse 2.4s ease-out infinite; }
+  @keyframes node-ring { 0%{transform:scale(1);opacity:.7} 100%{transform:scale(3.2);opacity:0} }
+  @keyframes node-pulse { 0%{transform:scale(1);opacity:.4} 100%{transform:scale(2);opacity:0} }
+  .cov-tag { position: absolute; top: -16px; left: -14px; background: var(--ink2); border: 1px solid var(--hairline2); padding: 15px 19px; backdrop-filter: blur(8px); }
+  .cov-tag-n { font-family: var(--display); font-weight: 800; font-size: 18px; color: var(--red); line-height: 1; letter-spacing: -.01em; }
+  .cov-tag-l { font-family: var(--mono); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--gray); margin-top: 4px; }
 
   /* OMV */
-  #omv{background:var(--bg)}
-  .omv-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-  .omv-visual{background:var(--bg3);border:1px solid var(--border);padding:48px;display:flex;flex-direction:column;gap:20px}
-  .omv-phone-top{font-family:var(--head);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:16px;display:flex;justify-content:space-between;align-items:center}
-  .omv-phone-top span{color:var(--text)}
-  .omv-signal{display:flex;gap:3px;align-items:flex-end}
-  .signal-bar{width:5px;border-radius:1px}
-  .omv-plan{background:var(--bg);border:1px solid var(--border);padding:20px;display:flex;align-items:center;gap:16px;transition:.2s}
-  .omv-plan:hover{border-color:rgba(232,25,44,.35)}
-  .omv-plan-icon{width:40px;height:40px;min-width:40px;background:var(--red-dim);border:1px solid rgba(232,25,44,.2);display:flex;align-items:center;justify-content:center}
-  .omv-plan-icon svg{width:18px;height:18px;stroke:var(--red);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-  .omv-plan-name{font-family:var(--head);font-weight:800;font-size:15px;text-transform:uppercase}
-  .omv-plan-data{font-size:11px;color:var(--muted2);margin-top:2px}
-  .omv-plan-price{margin-left:auto;font-family:var(--head);font-weight:900;font-size:22px;color:var(--red)}
-  .omv-text .eyebrow{margin-bottom:20px}
-  .omv-text .h2{margin-bottom:20px}
-  .omv-text .muted{margin-bottom:32px}
-  .omv-perks{display:flex;flex-direction:column;gap:16px}
-  .omv-perk{display:flex;align-items:flex-start;gap:14px}
-  .omv-perk-icon{width:36px;height:36px;min-width:36px;background:var(--red-dim);border:1px solid rgba(232,25,44,.2);display:flex;align-items:center;justify-content:center}
-  .omv-perk-icon svg{width:16px;height:16px;stroke:var(--red);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-  .omv-perk-title{font-family:var(--head);font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.04em}
-  .omv-perk-desc{font-size:13px;color:var(--muted2);margin-top:3px;line-height:1.6}
+  #omv { background: var(--ink2); overflow: hidden; }
+  .device { background: linear-gradient(160deg, var(--panel) 0%, var(--ink3) 100%); border: 1px solid var(--hairline2); padding: 40px; display: flex; flex-direction: column; gap: 18px; box-shadow: 0 40px 80px -30px rgba(0,0,0,.8); position: relative; overflow: hidden; }
+  .device::before { content: ''; position: absolute; top: -40px; right: -40px; width: 160px; height: 160px; background: radial-gradient(circle, var(--red-dim), transparent 70%); }
+  .device-top { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--hairline); padding-bottom: 18px; position: relative; }
+  .device-top .net { font-family: var(--display); font-weight: 700; font-size: 14px; letter-spacing: -.01em; }
+  .device-top .net small { font-family: var(--mono); font-weight: 500; font-size: 10px; color: var(--gray); letter-spacing: .12em; display: block; }
+  .bars { display: flex; gap: 3px; align-items: flex-end; }
+  .bars i { width: 5px; border-radius: 1px; display: block; }
+  .plan { background: var(--ink); border: 1px solid var(--hairline); padding: 20px; display: flex; align-items: center; gap: 16px; transition: .3s; position: relative; }
+  .plan:hover, .plan.hot { border-color: var(--red-line); }
+  .plan.hot { background: rgba(255,35,54,.03); }
+  .plan-ic { width: 42px; height: 42px; min-width: 42px; background: var(--red-dim); border: 1px solid var(--red-line); display: flex; align-items: center; justify-content: center; }
+  .plan-ic svg { width: 19px; height: 19px; stroke: var(--red); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .plan-info .nm { font-family: var(--display); font-weight: 700; font-size: 15px; text-transform: uppercase; letter-spacing: -.01em; }
+  .plan-info .dt { font-family: var(--mono); font-size: 11px; color: var(--silver); margin-top: 2px; letter-spacing: .03em; }
+  .plan-price { margin-left: auto; font-family: var(--display); font-weight: 800; font-size: 22px; color: var(--red); letter-spacing: -.02em; }
+  .plan-price small { font-family: var(--mono); font-size: 10px; color: var(--gray); font-weight: 500; }
+
+  .perks { display: flex; flex-direction: column; gap: 4px; }
+  .perk { display: flex; align-items: flex-start; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--hairline); }
+  .perk:last-child { border-bottom: none; }
+  .perk-ic { width: 40px; height: 40px; min-width: 40px; background: var(--red-dim); border: 1px solid var(--red-line); display: flex; align-items: center; justify-content: center; }
+  .perk-ic svg { width: 17px; height: 17px; stroke: var(--red); fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+  .perk-tx h4 { font-family: var(--display); font-weight: 700; font-size: 15px; text-transform: uppercase; letter-spacing: -.01em; margin-bottom: 4px; }
+  .perk-tx p { font-size: 13px; color: var(--silver); line-height: 1.6; }
 
   /* INFRA */
-  #infra{background:var(--bg2)}
-  .infra-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:64px}
-  .infra-card{background:var(--bg3);border:1px solid var(--border);padding:52px 44px;position:relative;overflow:hidden;transition:.3s}
-  .infra-card:hover{border-color:rgba(232,25,44,.3);transform:translateY(-4px)}
-  .infra-card-bg{position:absolute;top:-30px;right:-30px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(232,25,44,.06),transparent 70%);pointer-events:none}
-  .infra-card svg.main-ic{width:48px;height:48px;stroke:var(--red);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;margin-bottom:28px;display:block}
-  .infra-card h3{font-family:var(--head);font-weight:900;font-size:28px;text-transform:uppercase;letter-spacing:.02em;margin-bottom:6px}
-  .infra-card .cat{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:16px}
-  .infra-card p{color:var(--muted2);font-size:14px;line-height:1.8;margin-bottom:24px}
-  .infra-specs{display:flex;flex-direction:column;gap:8px}
-  .infra-spec{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted2)}
-  .infra-spec::before{content:'';width:6px;height:6px;min-width:6px;border-radius:50%;background:var(--red)}
+  #infra { background: var(--ink); }
+  .infra-head { max-width: 720px; margin-bottom: 64px; }
+  .infra-head h2 { font-size: clamp(32px, 4.4vw, 64px); margin: 22px 0 22px; }
+  .infra-head h2 .accent { color: var(--red); }
+  .infra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1340px; margin: 0 auto; }
+  .icard { position: relative; overflow: hidden; background: linear-gradient(165deg, var(--panel) 0%, var(--ink3) 100%); border: 1px solid var(--hairline); padding: 54px 46px; transition: transform .5s, border-color .5s, box-shadow .5s; }
+  .icard:hover { transform: translateY(-5px); border-color: var(--red-line); box-shadow: 0 30px 60px -22px rgba(0,0,0,.7); }
+  .icard::before { content: ''; position: absolute; top: -50px; right: -50px; width: 220px; height: 220px; background: radial-gradient(circle, var(--red-dim), transparent 70%); opacity: 0; transition: opacity .5s; }
+  .icard:hover::before { opacity: 1; }
+  .icard-ico { width: 60px; height: 60px; border: 1px solid var(--red-line); background: var(--red-dim); display: flex; align-items: center; justify-content: center; margin-bottom: 30px; }
+  .icard-ico svg { width: 28px; height: 28px; stroke: var(--red); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .icard h3 { font-family: var(--display); font-weight: 700; font-size: 26px; text-transform: uppercase; letter-spacing: -.02em; margin-bottom: 8px; }
+  .icard .tag-cat { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--red); margin-bottom: 18px; }
+  .icard p { color: var(--silver); font-size: 14px; line-height: 1.75; margin-bottom: 26px; }
+  .ispecs { display: flex; flex-direction: column; gap: 10px; }
+  .ispec { display: flex; align-items: center; gap: 12px; font-size: 13.5px; color: var(--silver); }
+  .ispec svg { width: 15px; height: 15px; min-width: 15px; stroke: var(--red); fill: none; stroke-width: 2; }
 
   /* WHY */
-  #why{background:var(--bg)}
-  .why-inner{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center}
-  .why-text .h2{margin-bottom:20px}
-  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .why-item{background:var(--bg3);border:1px solid var(--border);padding:28px;transition:.2s}
-  .why-item:hover{border-color:rgba(232,25,44,.3)}
-  .why-item svg{width:22px;height:22px;stroke:var(--red);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;margin-bottom:12px}
-  .why-item h4{font-family:var(--head);font-weight:800;font-size:16px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
-  .why-item p{font-size:13px;color:var(--muted2);line-height:1.7}
+  #why { background: var(--ink2); }
+  .why-grid-wrap { display: grid; grid-template-columns: 1fr 1.25fr; gap: 90px; align-items: center; max-width: 1340px; margin: 0 auto; }
+  .why-text h2 { font-size: clamp(32px, 4.4vw, 64px); margin: 22px 0 24px; }
+  .why-text h2 .accent { color: var(--red); }
+  .why-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .ycard { background: linear-gradient(160deg, var(--panel), var(--ink3)); border: 1px solid var(--hairline); padding: 30px; transition: .35s; }
+  .ycard:hover { border-color: var(--red-line); transform: translateY(-3px); }
+  .ycard svg { width: 24px; height: 24px; stroke: var(--red); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 14px; }
+  .ycard h4 { font-family: var(--display); font-weight: 700; font-size: 16px; text-transform: uppercase; letter-spacing: -.01em; margin-bottom: 8px; }
+  .ycard p { font-size: 13px; color: var(--silver); line-height: 1.65; }
 
   /* PROCESS */
-  #process{background:var(--bg2)}
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:64px;position:relative}
-  .steps::before{content:'';position:absolute;top:34px;left:80px;right:80px;height:1px;background:linear-gradient(90deg,var(--red),rgba(232,25,44,.1))}
-  .step{padding:0 20px}
-  .step-n{width:68px;height:68px;border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:900;font-size:26px;color:var(--red);background:var(--bg2);margin-bottom:24px;position:relative;z-index:1}
-  .step h4{font-family:var(--head);font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
-  .step p{color:var(--muted2);font-size:13px;line-height:1.7}
+  #process { background: var(--ink); }
+  .proc-head { max-width: 640px; margin-bottom: 72px; }
+  .proc-head h2 { font-size: clamp(32px, 4.4vw, 64px); margin: 22px 0 20px; }
+  .proc-head h2 .accent { color: var(--red); }
+  .proc-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; max-width: 1340px; margin: 0 auto; position: relative; }
+  .proc-steps::before { content: ''; position: absolute; top: 33px; left: 90px; right: 90px; height: 1px; background: linear-gradient(90deg, var(--red), var(--red-line) 70%, transparent); }
+  .pstep { padding: 0 22px; }
+  .pstep-n { width: 68px; height: 68px; border: 1.5px solid var(--red); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 800; font-size: 24px; color: var(--red); background: var(--ink); margin-bottom: 28px; position: relative; z-index: 1; letter-spacing: -.02em; transition: .4s; }
+  .pstep:hover .pstep-n { background: var(--red); color: #fff; box-shadow: 0 10px 30px var(--red-glow); }
+  .pstep h4 { font-family: var(--display); font-weight: 700; font-size: 17px; text-transform: uppercase; letter-spacing: -.01em; margin-bottom: 10px; }
+  .pstep p { color: var(--silver); font-size: 13px; line-height: 1.7; }
 
   /* CTA */
-  #cta{background:var(--bg3);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:120px 64px;text-align:center}
-  .cta-radial{position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 50% 50%,rgba(232,25,44,.09),transparent 65%)}
-  .cta-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:48px 48px}
-  .cta-inner{position:relative;max-width:700px}
-  .cta-inner .eyebrow{justify-content:center;margin-bottom:20px}
-  .cta-inner .eyebrow::after{display:none}
-  .cta-inner .h2{margin-bottom:18px}
-  .cta-inner .muted{margin-bottom:44px}
-  .cta-btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+  #cta { background: linear-gradient(180deg, var(--ink) 0%, var(--ink3) 100%); position: relative; overflow: hidden; text-align: center; padding: 150px 56px; }
+  #cta .glow-c { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 70vw; height: 70vw; max-width: 900px; max-height: 900px; background: radial-gradient(circle, rgba(255,35,54,.1), transparent 60%); pointer-events: none; }
+  #cta .grid-c { position: absolute; inset: 0; background-image: linear-gradient(var(--hairline) 1px, transparent 1px), linear-gradient(90deg, var(--hairline) 1px, transparent 1px); background-size: 50px 50px; mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent 80%); }
+  .cta-box { position: relative; max-width: 760px; margin: 0 auto; }
+  .cta-box .kicker { justify-content: center; margin-bottom: 26px; }
+  .cta-box .kicker::before { display: none; }
+  .cta-box h2 { font-size: clamp(36px, 5.5vw, 88px); margin-bottom: 24px; }
+  .cta-box h2 .accent { color: var(--red); }
+  .cta-box .lede { font-size: 18px; margin-bottom: 48px; }
+  .cta-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
 
   /* CONTACT */
-  #contact{background:var(--bg)}
-  .contact-inner{display:grid;grid-template-columns:1fr 1.2fr;gap:80px}
-  .contact-left .eyebrow{margin-bottom:20px}
-  .contact-left .h2{margin-bottom:18px}
-  .contact-left .muted{margin-bottom:40px}
-  .c-items{display:flex;flex-direction:column;gap:18px}
-  .c-item{display:flex;align-items:flex-start;gap:14px}
-  .c-icon{width:38px;height:38px;min-width:38px;background:var(--red-dim);border:1px solid rgba(232,25,44,.2);display:flex;align-items:center;justify-content:center}
-  .c-icon svg{width:16px;height:16px;stroke:var(--red);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-  .c-lbl{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
-  .c-val{font-size:14px;font-weight:500;margin-top:2px}
-  .contact-form{display:flex;flex-direction:column;gap:14px}
-  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .fg{display:flex;flex-direction:column;gap:5px}
-  .fg label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
-  .fg input,.fg select,.fg textarea{background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:12px 15px;font-family:var(--body);font-size:14px;outline:none;width:100%;transition:border-color .2s}
-  .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--red)}
-  .fg textarea{resize:vertical;min-height:110px}
-  .fg select option{background:var(--bg3)}
-  .submit-btn{background:var(--red);color:#fff;border:none;cursor:pointer;font-family:var(--head);font-weight:700;font-size:15px;letter-spacing:.08em;text-transform:uppercase;padding:15px 36px;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:.2s;display:flex;align-items:center;gap:10px;justify-content:center}
-  .submit-btn:hover{background:#ff2a3d}
+  #contact { background: var(--ink2); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 90px; max-width: 1340px; margin: 0 auto; }
+  .contact-info h2 { font-size: clamp(32px, 4.4vw, 60px); margin: 22px 0 22px; }
+  .contact-info h2 .accent { color: var(--red); }
+  .contact-info .lede { margin-bottom: 44px; }
+  .cinfo-items { display: flex; flex-direction: column; gap: 4px; }
+  .cinfo { display: flex; align-items: center; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--hairline); }
+  .cinfo:last-child { border-bottom: none; }
+  .cinfo-ic { width: 42px; height: 42px; min-width: 42px; background: var(--red-dim); border: 1px solid var(--red-line); display: flex; align-items: center; justify-content: center; }
+  .cinfo-ic svg { width: 17px; height: 17px; stroke: var(--red); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .cinfo-l { font-family: var(--mono); font-size: 10.5px; letter-spacing: .15em; text-transform: uppercase; color: var(--gray); }
+  .cinfo-v { font-size: 15px; font-weight: 500; margin-top: 3px; }
+
+  .form { display: flex; flex-direction: column; gap: 16px; background: linear-gradient(165deg, var(--panel), var(--ink3)); border: 1px solid var(--hairline); padding: 40px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field { display: flex; flex-direction: column; gap: 7px; }
+  .field label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .15em; text-transform: uppercase; color: var(--gray); }
+  .field input, .field select, .field textarea { background: var(--ink); border: 1px solid var(--hairline); color: var(--white); padding: 13px 15px; font-family: var(--body); font-size: 14px; outline: none; width: 100%; transition: border-color .3s, background .3s; }
+  .field input::placeholder, .field textarea::placeholder { color: var(--gray-deep); }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--red); background: rgba(255,35,54,.02); }
+  .field textarea { resize: vertical; min-height: 110px; }
+  .field select option { background: var(--ink); }
+  .form-submit { background: var(--red); color: #fff; border: none; cursor: pointer; font-family: var(--body); font-weight: 600; font-size: 15px; padding: 16px; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 8px 30px var(--red-glow); transition: .3s; }
+  .form-submit:hover { transform: translateY(-2px); box-shadow: 0 14px 40px var(--red-glow); }
 
   /* FOOTER */
-  footer{background:var(--bg2);border-top:1px solid var(--border);padding:72px 64px 28px}
-  .foot-main{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:48px;margin-bottom:56px}
-  .foot-brand p{color:var(--muted2);font-size:13px;line-height:1.8;margin:14px 0 22px;max-width:240px}
-  .foot-social{display:flex;gap:8px}
-  .soc{width:34px;height:34px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;transition:.2s}
-  .soc:hover{border-color:var(--red);color:var(--red)}
-  .foot-col h4{font-family:var(--head);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:18px}
-  .foot-col ul{list-style:none;display:flex;flex-direction:column;gap:9px}
-  .foot-col a{color:var(--muted2);text-decoration:none;font-size:13px;transition:.2s}
-  .foot-col a:hover{color:var(--text)}
-  .foot-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:24px;font-size:11px;color:var(--muted);letter-spacing:.05em}
+  footer { background: var(--ink); border-top: 1px solid var(--hairline); padding: 80px 56px 32px; }
+  .foot-wrap { max-width: 1340px; margin: 0 auto; }
+  .foot-top { display: grid; grid-template-columns: 1.8fr repeat(4, 1fr); gap: 50px; margin-bottom: 64px; }
+  .foot-brand p { color: var(--silver); font-size: 13px; line-height: 1.8; margin: 18px 0 24px; max-width: 250px; }
+  .foot-social { display: flex; gap: 9px; }
+  .fsoc { width: 38px; height: 38px; border: 1px solid var(--hairline); display: flex; align-items: center; justify-content: center; color: var(--gray); text-decoration: none; transition: .3s; }
+  .fsoc:hover { border-color: var(--red); color: var(--red); transform: translateY(-2px); }
+  .fcol h5 { font-family: var(--mono); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .18em; color: var(--white); margin-bottom: 20px; }
+  .fcol ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+  .fcol a { color: var(--silver); text-decoration: none; font-size: 13.5px; transition: color .25s; }
+  .fcol a:hover { color: var(--red); }
+  .foot-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--hairline); padding-top: 28px; }
+  .foot-bottom span { font-family: var(--mono); font-size: 11px; color: var(--gray); letter-spacing: .06em; }
 
-  /* RESPONSIVE */
-  @media(max-width:1100px){
-    nav,nav.sc{padding-left:32px;padding-right:32px}
-    section{padding:80px 32px}
-    .hero-content{padding:120px 32px 180px}
-    .hero-visual{display:none}
-    .products-grid{grid-template-columns:1fr 1fr}
-    .prod-card.featured{grid-column:span 1}
-    .featured-inner{grid-template-columns:1fr}
-    .hero-products{grid-template-columns:repeat(3,1fr)}
-    .ott-inner,.connectivity-grid,.omv-inner,.why-inner,.contact-inner{grid-template-columns:1fr;gap:48px}
-    .infra-grid{grid-template-columns:1fr}
-    .steps{grid-template-columns:repeat(2,1fr);gap:40px}
-    .steps::before{display:none}
-    .band{padding:40px 32px}
-    .foot-main{grid-template-columns:1fr 1fr;gap:32px}
+  /* MOBILE NAV PANEL */
+  .mobile-panel { position: fixed; inset: 0; z-index: 250; background: rgba(6,8,14,.98); backdrop-filter: blur(20px); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 28px; opacity: 0; pointer-events: none; transition: opacity .4s; }
+  .mobile-panel.open { opacity: 1; pointer-events: auto; }
+  .mobile-panel a { color: var(--white); font-family: var(--display); font-weight: 700; font-size: 28px; text-transform: uppercase; text-decoration: none; letter-spacing: -.02em; }
+  .mobile-panel a:hover { color: var(--red); }
+
+  /* ════════════════ EXTRAS: LOADER / PROGRESS / TOP ════════════════ */
+  #progress { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: linear-gradient(90deg, var(--red), var(--red-deep)); z-index: 400; box-shadow: 0 0 14px var(--red-glow); }
+
+  #loader { position: fixed; inset: 0; z-index: 1000; background: var(--ink); display: flex; align-items: center; justify-content: center; transition: transform .85s cubic-bezier(.7,0,.3,1), opacity .85s ease; }
+  #loader.done { transform: translateY(-100%); opacity: .85; }
+  .loader-inner { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+  .loader-inner svg { width: 76px; height: 76px; filter: drop-shadow(0 8px 26px var(--red-glow)); animation: loader-pop .9s cubic-bezier(.16,1,.3,1) both; }
+  @keyframes loader-pop { from { transform: scale(.55); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .loader-name { font-family: var(--display); font-weight: 800; font-size: 17px; letter-spacing: .34em; text-transform: uppercase; color: var(--white); opacity: 0; animation: fade-in .7s ease forwards .35s; }
+  .loader-track { width: 170px; height: 2px; background: var(--hairline2); overflow: hidden; }
+  .loader-track span { display: block; height: 100%; background: var(--red); box-shadow: 0 0 10px var(--red-glow); transform: scaleX(0); transform-origin: left; animation: loader-fill 1.25s cubic-bezier(.4,0,.2,1) forwards .25s; }
+  @keyframes loader-fill { to { transform: scaleX(1); } }
+
+  #toTop { position: fixed; right: 26px; bottom: 26px; z-index: 350; width: 46px; height: 46px; border: 1px solid var(--red-line); background: rgba(6,8,14,.7); backdrop-filter: blur(10px); color: var(--red); display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; pointer-events: none; transform: translateY(12px); transition: .35s; }
+  #toTop.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  #toTop:hover { background: var(--red); color: #fff; box-shadow: 0 10px 30px var(--red-glow); }
+
+  /* ════════════════ RESPONSIVE ════════════════ */
+  @media (max-width: 1100px) {
+    nav, nav.sc { padding-left: 32px; padding-right: 32px; }
+    section { padding: 90px 32px; }
+    #hero { padding: 110px 32px 0; }
+    .hero-inner { padding-bottom: 110px; }
+    .nav-menu { display: none; }
+    .nav-toggle { display: flex; }
+    .sec-head { grid-template-columns: 1fr; gap: 28px; }
+    .pgrid { grid-template-columns: repeat(2, 1fr); }
+    .pcard.lg, .pcard.sm, .pcard.md { grid-column: span 1; }
+    .pcard-split { grid-template-columns: 1fr; }
+    .hero-index { grid-template-columns: repeat(3, 1fr); }
+    .feat, .why-grid-wrap, .contact-grid { grid-template-columns: 1fr; gap: 56px; }
+    .infra-grid { grid-template-columns: 1fr; }
+    .proc-steps { grid-template-columns: repeat(2, 1fr); gap: 44px; }
+    .proc-steps::before { display: none; }
+    .metrics { padding: 50px 32px; }
+    .foot-top { grid-template-columns: 1fr 1fr; gap: 36px; }
   }
-  @media(max-width:768px){
-    nav,nav.sc{padding-left:20px;padding-right:20px}
-    .nav-links{display:none}
-    section{padding:64px 20px}
-    .hero-content{padding:100px 20px 220px}
-    .hero-products{grid-template-columns:1fr 1fr}
-    .products-grid{grid-template-columns:1fr}
-    .band{grid-template-columns:1fr 1fr}
-    .products-head,.why-inner{grid-template-columns:1fr}
-    .connectivity-cards{grid-template-columns:1fr}
-    .ott-specs{grid-template-columns:1fr 1fr}
-    .form-row{grid-template-columns:1fr}
-    .foot-main{grid-template-columns:1fr}
-    .foot-bottom{flex-direction:column;gap:8px;text-align:center}
-    .infra-card{padding:36px 28px}
-    .steps{grid-template-columns:1fr}
+  @media (max-width: 680px) {
+    nav, nav.sc { padding-left: 20px; padding-right: 20px; }
+    section { padding: 72px 20px; }
+    #hero { padding: 96px 20px 0; }
+    .hero-inner { padding-bottom: 92px; }
+    .hero-video { margin-bottom: 30px; }
+    .hv-corner { width: 18px; height: 18px; }
+    .hv-label { font-size: 9px; letter-spacing: .18em; padding: 4px 10px; }
+    .hero-index { grid-template-columns: 1fr 1fr; }
+    .hidx { padding: 18px 16px; }
+    .pgrid { grid-template-columns: 1fr; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; gap: 24px 0; }
+    .metric:nth-child(2) { border-right: none; }
+    .wifi-cards, .spec-grid, .why-cards { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .form { padding: 28px; }
+    .proc-steps { grid-template-columns: 1fr; }
+    .foot-top { grid-template-columns: 1fr; }
+    .foot-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    .marquee-item { font-size: 11px; padding: 0 22px; gap: 22px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    .hero-title .line > span { transform: none; }
+    .hero-sub, .hero-cta { opacity: 1; }
   }
   </style>
 </head>
 <body>
 
+<div id="progress"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-inner">
+    <svg viewBox="0 0 80 80" fill="none">
+      <defs><linearGradient id="ld" x1="12" y1="12" x2="68" y2="68" gradientUnits="userSpaceOnUse"><stop stop-color="#ff3a4c"/><stop offset="1" stop-color="#8f0a16"/></linearGradient></defs>
+      <path d="M15 10L68 40L15 70L15 58L44 40L15 22Z" fill="url(#ld)" opacity=".15"/>
+      <path d="M18 14L65 40L18 66L18 56L46 40L18 24Z" fill="url(#ld)" opacity=".4"/>
+      <path d="M22 20L60 40L22 60L22 52L48 40L22 28Z" fill="url(#ld)"/>
+      <path d="M30 30L52 40L30 50Z" fill="rgba(0,0,0,.45)"/>
+    </svg>
+    <div class="loader-name">Shark Broadcast</div>
+    <div class="loader-track"><span></span></div>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav id="nav">
-  <a href="#" class="logo">
-    <svg class="logo-mark" viewBox="0 0 80 80" fill="none">
-      <defs><linearGradient id="lg" x1="10" y1="10" x2="70" y2="70" gradientUnits="userSpaceOnUse"><stop stop-color="#ff3344"/><stop offset="1" stop-color="#b0101f"/></linearGradient></defs>
-      <path d="M15 10L68 40L15 70L15 58L44 40L15 22Z" fill="url(#lg)" opacity=".15"/>
-      <path d="M18 14L65 40L18 66L18 56L46 40L18 24Z" fill="url(#lg)" opacity=".4"/>
-      <path d="M22 20L60 40L22 60L22 52L48 40L22 28Z" fill="url(#lg)"/>
-      <path d="M30 30L52 40L30 50Z" fill="rgba(0,0,0,.4)"/>
+  <a href="#hero" class="brand">
+    <svg class="brand-mark" viewBox="0 0 80 80" fill="none">
+      <defs><linearGradient id="bm" x1="12" y1="12" x2="68" y2="68" gradientUnits="userSpaceOnUse"><stop stop-color="#ff3a4c"/><stop offset="1" stop-color="#8f0a16"/></linearGradient></defs>
+      <path d="M15 10L68 40L15 70L15 58L44 40L15 22Z" fill="url(#bm)" opacity=".15"/>
+      <path d="M18 14L65 40L18 66L18 56L46 40L18 24Z" fill="url(#bm)" opacity=".4"/>
+      <path d="M22 20L60 40L22 60L22 52L48 40L22 28Z" fill="url(#bm)"/>
+      <path d="M30 30L52 40L30 50Z" fill="rgba(0,0,0,.45)"/>
     </svg>
-    <div class="logo-text">SHARK<span>Broadcast</span></div>
+    <div class="brand-name">SHARK<span>Broadcast</span></div>
   </a>
-  <ul class="nav-links">
+  <ul class="nav-menu">
     <li><a href="#products">Productos</a></li>
     <li><a href="#ott">OTT FAST</a></li>
-    <li><a href="#connectivity">WiFi</a></li>
+    <li><a href="#wifi">WiFi</a></li>
     <li><a href="#omv">OMV</a></li>
     <li><a href="#infra">FTTH &amp; Satélite</a></li>
     <li><a href="#contact">Contacto</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Solicitar Demo</a>
+  <a href="#contact" class="nav-action">Solicitar Demo</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menú"><span></span><span></span><span></span></button>
 </nav>
+
+<div class="mobile-panel" id="mobilePanel">
+  <a href="#products">Productos</a>
+  <a href="#ott">OTT FAST</a>
+  <a href="#wifi">WiFi</a>
+  <a href="#omv">OMV</a>
+  <a href="#infra">FTTH &amp; Satélite</a>
+  <a href="#contact">Contacto</a>
+</div>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-noise"></div>
-  <div class="hero-lines"></div>
-  <div class="hero-stripes"></div>
-  <div class="hero-visual">
-    <div class="orbit" style="--sp:8s"></div>
-    <div class="orbit" style="--sp:14s;inset:40px;animation-direction:reverse"></div>
-    <div class="orbit" style="--sp:20s;inset:80px"></div>
+  <div class="hero-atmos">
+    <div class="glow1"></div>
+    <div class="glow2"></div>
   </div>
-  <div class="hero-content">
-    <div class="hero-tag"><div class="hero-dot"></div>Telecom · Video · Conectividad · LATAM</div>
-    <h1 class="hero-h1">
-      Tecnología
-      <em>que conecta</em>
-      <span class="outline">el mundo.</span>
-    </h1>
-    <p class="hero-sub">Integraciones de video, plataformas OTT/FAST, redes WiFi para exteriores, operador OMV, FTTH y satélite — todo desde una sola empresa.</p>
-    <div class="hero-btns">
-      <a href="#products" class="btn btn-red">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+  <div class="hero-floor"></div>
+
+  <div class="hero-inner">
+    <div class="hero-top">
+      <div class="hero-badge"><span class="pulse"></span> Infraestructura de Medios &amp; Telecom · LATAM</div>
+      <h1 class="hero-title">
+        <span class="line"><span>Del escenario</span></span>
+        <span class="line"><span class="accent">a tu pantalla.</span></span>
+      </h1>
+      <p class="hero-sub">Integraciones de video, OTT/FAST, WiFi para exteriores, operador OMV, FTTH y satélite. Toda tu cadena de señal, una sola empresa.</p>
+    </div>
+
+    <!-- VIDEO CENTERPIECE -->
+    <div class="hero-video reveal">
+      <div class="hv-aura"></div>
+      <div class="hv-frame">
+        <div class="hv-corner tl"></div>
+        <div class="hv-corner tr"></div>
+        <div class="hv-corner bl"></div>
+        <div class="hv-corner br"></div>
+        <div class="hv-label"><span class="hv-rec"></span> SHARK BROADCAST · REEL</div>
+        <iframe src="shark-video.html" title="Shark Broadcast — Del escenario a tu pantalla" loading="eager" allow="autoplay; fullscreen" frameborder="0"></iframe>
+      </div>
+    </div>
+
+    <div class="hero-cta">
+      <a href="#products" class="btn btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
         Ver Productos
       </a>
-      <a href="#contact" class="btn btn-outline">Hablar con un Experto</a>
+      <a href="#contact" class="btn btn-ghost">Hablar con un Experto</a>
     </div>
   </div>
-  <div class="hero-products">
-    <div class="hprod">
-      <div class="hprod-icon"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
-      <div><div class="hprod-name">Video &amp; Broadcast</div><div class="hprod-cat">Producción</div></div>
-    </div>
-    <div class="hprod">
-      <div class="hprod-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10"/></svg></div>
-      <div><div class="hprod-name">OTT FAST LATAM</div><div class="hprod-cat">Streaming</div></div>
-    </div>
-    <div class="hprod">
-      <div class="hprod-icon"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg></div>
-      <div><div class="hprod-name">Soluciones WiFi para Exteriores</div><div class="hprod-cat">Conectividad</div></div>
-    </div>
-    <div class="hprod">
-      <div class="hprod-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
-      <div><div class="hprod-name">Operador OMV</div><div class="hprod-cat">Telefonía</div></div>
-    </div>
-    <div class="hprod">
-      <div class="hprod-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-      <div><div class="hprod-name">FTTH &amp; Satélite</div><div class="hprod-cat">Infraestructura</div></div>
-    </div>
+
+  <div class="hero-index">
+    <a href="#products" class="hidx">
+      <span class="hidx-no">01</span>
+      <div class="hidx-tx">Video &amp; Broadcast<small>Producción</small></div>
+    </a>
+    <a href="#ott" class="hidx">
+      <span class="hidx-no">02</span>
+      <div class="hidx-tx">OTT FAST LATAM<small>Streaming</small></div>
+    </a>
+    <a href="#wifi" class="hidx">
+      <span class="hidx-no">03</span>
+      <div class="hidx-tx">WiFi Exteriores<small>Conectividad</small></div>
+    </a>
+    <a href="#omv" class="hidx">
+      <span class="hidx-no">04</span>
+      <div class="hidx-tx">Operador OMV<small>Telefonía</small></div>
+    </a>
+    <a href="#infra" class="hidx">
+      <span class="hidx-no">05</span>
+      <div class="hidx-tx">FTTH &amp; Satélite<small>Infraestructura</small></div>
+    </a>
   </div>
 </section>
 
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker">
-    <span class="ticker-item">Video &amp; Broadcast <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">OTT FAST LATAM <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">Soluciones WiFi para Exteriores <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">Operador OMV <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">FTTH <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">Satélite <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">Apps OTT <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">Telecom B2B <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">Video &amp; Broadcast <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">OTT FAST LATAM <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">Soluciones WiFi para Exteriores <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">Operador OMV <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">FTTH <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">Satélite <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">Apps OTT <span class="ticker-sep">✦</span></span>
-    <span class="ticker-item">Telecom B2B <span class="ticker-sep">✦</span></span>
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item">Video &amp; Broadcast</span>
+    <span class="marquee-item">OTT FAST LATAM</span>
+    <span class="marquee-item">WiFi para Exteriores</span>
+    <span class="marquee-item">Operador OMV</span>
+    <span class="marquee-item">FTTH</span>
+    <span class="marquee-item">Satélite</span>
+    <span class="marquee-item">Telecom B2B</span>
+    <span class="marquee-item">Video &amp; Broadcast</span>
+    <span class="marquee-item">OTT FAST LATAM</span>
+    <span class="marquee-item">WiFi para Exteriores</span>
+    <span class="marquee-item">Operador OMV</span>
+    <span class="marquee-item">FTTH</span>
+    <span class="marquee-item">Satélite</span>
+    <span class="marquee-item">Telecom B2B</span>
   </div>
 </div>
 
 <!-- PRODUCTS -->
 <section id="products">
-  <div class="products-head">
-    <div>
-      <div class="eyebrow fade-up">Portafolio Completo</div>
-      <h2 class="h2 fade-up d1">5 líneas de <em>negocio.</em><br>Una sola empresa.</h2>
-    </div>
-    <div class="fade-up d2">
-      <p class="muted">Shark Broadcast integra tecnología de video, telecomunicaciones y conectividad en una propuesta de valor única para empresas, gobiernos y operadores en Latinoamérica.</p>
-    </div>
-  </div>
-  <div class="products-grid">
-
-    <div class="prod-card featured fade-up">
-      <span class="prod-num">01</span>
-      <div class="featured-inner">
-        <div>
-          <div class="prod-icon"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
-          <h3>Video &amp; Broadcast</h3>
-          <p class="cat">Producción · Transmisión</p>
-          <p>Soluciones completas de producción audiovisual, transmisión en vivo, grafismo y distribución multicanal para medios, eventos y marcas que necesitan comunicar con impacto.</p>
-          <div class="prod-tags" style="margin-top:20px">
-            <span class="tag">Transmisión en Vivo</span><span class="tag">Producción 4K</span><span class="tag">Multicámara</span><span class="tag">Grafismo</span><span class="tag">Eventos</span>
-          </div>
-        </div>
-        <div>
-          <ul class="prod-features">
-            <li>Transmisión a múltiples plataformas simultáneas</li>
-            <li>Producción multicámara HD/4K con grafismo en tiempo real</li>
-            <li>Cobertura de eventos deportivos, corporativos y gubernamentales</li>
-            <li>Integración con YouTube, Facebook, Twitch y CDN propios</li>
-            <li>Soporte técnico 24/7 durante producción</li>
-            <li>Post-producción y archivo de contenido</li>
-          </ul>
-        </div>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="kicker reveal">Portafolio</span>
+        <h2 class="display reveal dl1">Cinco líneas.<br><span class="accent">Una sola</span> empresa.</h2>
+      </div>
+      <div class="sec-head-aside reveal dl2">
+        <p class="lede">Shark Broadcast integra tecnología de video, telecomunicaciones y conectividad en una propuesta única para empresas, gobiernos y operadores en Latinoamérica.</p>
       </div>
     </div>
 
-    <div class="prod-card fade-up d1">
-      <span class="prod-num">02</span>
-      <div class="prod-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10"/></svg></div>
-      <h3>Apps OTT &amp; FAST LATAM</h3>
-      <p class="cat">Streaming · Plataforma</p>
-      <p>Plataformas OTT y canales FAST (Free Ad-Supported TV) para el mercado latinoamericano. Monetización por publicidad, suscripción o modelo híbrido con apps nativas.</p>
-      <div class="prod-tags"><span class="tag">FAST Channels</span><span class="tag">VOD</span><span class="tag">Smart TV</span><span class="tag">SSAI</span></div>
-    </div>
+    <div class="pgrid">
 
-    <div class="prod-card fade-up d2">
-      <span class="prod-num">03</span>
-      <div class="prod-icon"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg></div>
-      <h3>Soluciones WiFi para Exteriores</h3>
-      <p class="cat">Conectividad · Smart City</p>
-      <p>Diseño, despliegue y operación de redes WiFi para exteriores dirigidas al sector público y privado. Parques, municipios, estadios, centros comerciales y más.</p>
-      <div class="prod-tags"><span class="tag">Smart City</span><span class="tag">Hotspot</span><span class="tag">Portal Cautivo</span><span class="tag">Analytics</span></div>
-    </div>
+      <!-- VIDEO -->
+      <article class="pcard lg reveal">
+        <span class="pcard-no">01</span>
+        <div class="pcard-split">
+          <div>
+            <div class="pcard-ico"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+            <h3>Video &amp; Broadcast</h3>
+            <div class="tag-cat">Producción · Transmisión</div>
+            <p>Producción audiovisual, transmisión en vivo, grafismo y distribución multicanal para medios, eventos y marcas que comunican con impacto.</p>
+            <div class="pchips">
+              <span class="chip">Transmisión en Vivo</span><span class="chip">4K</span><span class="chip">Multicámara</span><span class="chip">Grafismo</span>
+            </div>
+          </div>
+          <div>
+            <ul class="pfeatures">
+              <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Distribución a múltiples plataformas simultáneas</li>
+              <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Producción multicámara HD/4K con grafismo en vivo</li>
+              <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Eventos deportivos, corporativos y gubernamentales</li>
+              <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Integración con YouTube, Facebook, Twitch y CDN propio</li>
+              <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Soporte técnico 24/7 durante producción</li>
+              <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Post-producción y archivo de contenido</li>
+            </ul>
+          </div>
+        </div>
+      </article>
 
-    <div class="prod-card fade-up">
-      <span class="prod-num">04</span>
-      <div class="prod-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
-      <h3>Operador OMV</h3>
-      <p class="cat">Telefonía · Datos · MVNO</p>
-      <p>Operador Móvil Virtual para México. Voz, datos 4G/5G y SMS con infraestructura de carrier mayor, marca propia y flexibilidad total para B2B y B2C.</p>
-      <div class="prod-tags"><span class="tag">4G/5G</span><span class="tag">Voz</span><span class="tag">SMS</span><span class="tag">MVNO</span></div>
-    </div>
+      <!-- OTT -->
+      <article class="pcard sm reveal dl1">
+        <span class="pcard-no">02</span>
+        <div class="pcard-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <h3>OTT &amp; FAST</h3>
+        <div class="tag-cat">Streaming · Plataforma</div>
+        <p>Plataformas OTT y canales FAST para LATAM. Monetización por publicidad, suscripción o híbrido con apps nativas.</p>
+        <div class="pchips"><span class="chip">FAST</span><span class="chip">VOD</span><span class="chip">Smart TV</span></div>
+      </article>
 
-    <div class="prod-card fade-up d1">
-      <span class="prod-num">05</span>
-      <div class="prod-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-      <h3>FTTH &amp; Satélite</h3>
-      <p class="cat">Infraestructura · ISP</p>
-      <p>Fibra óptica hasta el hogar (FTTH/GPON) y conectividad satelital para zonas sin cobertura terrestre. Internet de alta velocidad en cualquier geografía.</p>
-      <div class="prod-tags"><span class="tag">Fibra Óptica</span><span class="tag">GPON</span><span class="tag">VSAT</span><span class="tag">LEO</span></div>
-    </div>
+      <!-- WIFI -->
+      <article class="pcard md reveal dl2">
+        <span class="pcard-no">03</span>
+        <div class="pcard-ico"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg></div>
+        <h3>WiFi para Exteriores</h3>
+        <div class="tag-cat">Conectividad · Smart City</div>
+        <p>Diseño, despliegue y operación de redes WiFi para exteriores dirigidas al sector público y privado: parques, municipios, estadios, centros comerciales y más.</p>
+        <div class="pchips"><span class="chip">Sector Público</span><span class="chip">Sector Privado</span><span class="chip">Portal Cautivo</span><span class="chip">Analytics</span></div>
+      </article>
 
+      <!-- OMV -->
+      <article class="pcard md reveal dl1">
+        <span class="pcard-no">04</span>
+        <div class="pcard-ico"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+        <h3>Operador OMV</h3>
+        <div class="tag-cat">Telefonía · Datos · MVNO</div>
+        <p>Operador Móvil Virtual para México. Voz, datos 4G/5G y SMS con infraestructura de carrier mayor, marca propia y flexibilidad total para B2B y B2C.</p>
+        <div class="pchips"><span class="chip">4G/5G</span><span class="chip">Voz</span><span class="chip">SMS</span><span class="chip">MVNO</span></div>
+      </article>
+
+      <!-- FTTH -->
+      <article class="pcard md reveal dl2">
+        <span class="pcard-no">05</span>
+        <div class="pcard-ico"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <h3>FTTH &amp; Satélite</h3>
+        <div class="tag-cat">Infraestructura · ISP</div>
+        <p>Fibra óptica hasta el hogar (FTTH/GPON) y conectividad satelital para zonas sin cobertura terrestre. Internet de alta velocidad en cualquier geografía.</p>
+        <div class="pchips"><span class="chip">Fibra</span><span class="chip">GPON</span><span class="chip">VSAT</span><span class="chip">LEO</span></div>
+      </article>
+
+    </div>
   </div>
 </section>
 
-<!-- BAND -->
-<div class="band">
-  <div class="band-item fade-up"><div class="band-num">5</div><div class="band-label">Líneas de Negocio</div></div>
-  <div class="band-item fade-up d1"><div class="band-num">12+</div><div class="band-label">Años de Experiencia</div></div>
-  <div class="band-item fade-up d2"><div class="band-num">500+</div><div class="band-label">Proyectos Exitosos</div></div>
-  <div class="band-item fade-up d3"><div class="band-num">LATAM</div><div class="band-label">Cobertura Regional</div></div>
+<!-- METRICS -->
+<div class="metrics">
+  <div class="metrics-grid">
+    <div class="metric reveal"><div class="metric-n" data-count="5">5</div><div class="metric-l">Líneas de Negocio</div></div>
+    <div class="metric reveal dl1"><div class="metric-n" data-count="12" data-suffix="+">12+</div><div class="metric-l">Años de Experiencia</div></div>
+    <div class="metric reveal dl2"><div class="metric-n" data-count="500" data-suffix="+">500+</div><div class="metric-l">Proyectos Exitosos</div></div>
+    <div class="metric reveal dl3"><div class="metric-n">LATAM</div><div class="metric-l">Cobertura Regional</div></div>
+  </div>
 </div>
 
 <!-- OTT -->
 <section id="ott">
-  <div class="ott-bg"></div>
-  <div class="ott-inner">
-    <div class="fade-up">
-      <div style="position:relative;padding-bottom:24px">
-        <div class="ott-screen">
-          <div class="ott-screen-glow"></div>
-          <div class="ott-channels">
-            <div class="ott-ch live">Noticias 24<div class="ott-ch-bar"></div></div>
-            <div class="ott-ch live">Deportes HD<div class="ott-ch-bar" style="animation-delay:.8s"></div></div>
-            <div class="ott-ch">Entretenimiento</div>
-            <div class="ott-ch live">Música LATAM<div class="ott-ch-bar" style="animation-delay:1.6s"></div></div>
-            <div class="ott-ch">Kids &amp; Family</div>
-            <div class="ott-ch live">Cultura MX<div class="ott-ch-bar" style="animation-delay:2.4s"></div></div>
+  <div class="glow-side"></div>
+  <div class="feat">
+    <div class="reveal">
+      <div class="screen-frame">
+        <div class="screen">
+          <div class="screen-glow"></div>
+          <div class="channels">
+            <div class="ch on">Noticias 24<span class="prog"></span></div>
+            <div class="ch on">Deportes HD<span class="prog" style="animation-delay:.9s"></span></div>
+            <div class="ch">Cine LATAM</div>
+            <div class="ch on">Música<span class="prog" style="animation-delay:1.8s"></span></div>
+            <div class="ch">Kids</div>
+            <div class="ch on">Cultura MX<span class="prog" style="animation-delay:2.7s"></span></div>
           </div>
         </div>
-        <div class="ott-badge"><div class="ott-badge-n">FAST</div><div class="ott-badge-l">Free Ad-Supported TV</div></div>
+        <div class="screen-tag"><div class="screen-tag-n">FAST</div><div class="screen-tag-l">Free Ad-Supported TV</div></div>
       </div>
     </div>
-    <div class="ott-text fade-up d2">
-      <div class="eyebrow">OTT FAST LATAM</div>
-      <h2 class="h2">Tu plataforma<br>de streaming <em>propia</em></h2>
-      <p class="muted">Construimos plataformas OTT con canales FAST completamente personalizados para el mercado latinoamericano. Sin costo para el espectador, monetización por publicidad insertada (SSAI/CSAI), con apps para Smart TV, móvil y web.</p>
-      <div class="ott-specs">
-        <div class="ott-spec"><div class="ott-spec-v">SSAI</div><div class="ott-spec-l">Ad Insertion</div></div>
-        <div class="ott-spec"><div class="ott-spec-v">HLS/DASH</div><div class="ott-spec-l">Protocolos</div></div>
-        <div class="ott-spec"><div class="ott-spec-v">iOS/Android</div><div class="ott-spec-l">Apps Nativas</div></div>
-        <div class="ott-spec"><div class="ott-spec-v">SmartTV</div><div class="ott-spec-l">Roku · Fire · LG</div></div>
+    <div class="feat-text reveal dl2">
+      <span class="kicker">OTT FAST LATAM</span>
+      <h2 class="display">Tu plataforma de<br>streaming <span class="accent">propia</span></h2>
+      <p class="lede">Construimos plataformas OTT con canales FAST personalizados para el mercado latinoamericano. Sin costo para el espectador, monetización por publicidad insertada (SSAI/CSAI), con apps para Smart TV, móvil y web.</p>
+      <div class="spec-grid">
+        <div class="spec"><div class="spec-v">SSAI</div><div class="spec-l">Ad Insertion</div></div>
+        <div class="spec"><div class="spec-v">HLS / DASH</div><div class="spec-l">Protocolos</div></div>
+        <div class="spec"><div class="spec-v">iOS / Android</div><div class="spec-l">Apps Nativas</div></div>
+        <div class="spec"><div class="spec-v">Smart TV</div><div class="spec-l">Roku · Fire · LG</div></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- WIFI -->
-<section id="connectivity">
-  <div class="connectivity-grid">
-    <div>
-      <div class="eyebrow fade-up">Sector Público y Privado</div>
-      <h2 class="h2 fade-up d1">Internet para <em>toda</em><br>la comunidad</h2>
-      <p class="muted fade-up d2">Diseñamos, desplegamos y operamos redes WiFi para exteriores dirigidas tanto al sector público como privado. Parques, municipios, estadios, centros comerciales, hospitales, universidades y cualquier espacio que requiera conectividad de alto rendimiento al aire libre.</p>
-      <div class="connectivity-cards">
-        <div class="conn-card fade-up d2">
-          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          <h4>WiFi Residencial</h4>
-          <p>Cobertura para colonias y zonas urbanas con portales cautivos y gestión de acceso.</p>
-        </div>
-        <div class="conn-card fade-up d3">
+<section id="wifi">
+  <div class="feat">
+    <div class="feat-text reveal">
+      <span class="kicker">Sector Público y Privado</span>
+      <h2 class="display">Conectividad para<br><span class="accent">exteriores</span></h2>
+      <p class="lede">Diseñamos, desplegamos y operamos redes WiFi para exteriores dirigidas tanto al sector público como privado. Parques, municipios, estadios, centros comerciales, hospitales, universidades y cualquier espacio que requiera conectividad de alto rendimiento al aire libre.</p>
+      <div class="wifi-cards">
+        <div class="wcard">
           <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
           <h4>Espacios Públicos</h4>
           <p>Parques, plazas y mercados con WiFi gratuito patrocinado y analytics de afluencia.</p>
         </div>
-        <div class="conn-card fade-up d2">
+        <div class="wcard">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <h4>Sector Privado</h4>
+          <p>Hoteles, plazas comerciales, estadios y campus corporativos con cobertura premium.</p>
+        </div>
+        <div class="wcard">
           <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
           <h4>Smart City</h4>
-          <p>Base de conectividad para servicios inteligentes: cámaras, sensores IoT y gestión municipal.</p>
+          <p>Base de conectividad para servicios inteligentes: cámaras, sensores IoT y gestión.</p>
         </div>
-        <div class="conn-card fade-up d3">
+        <div class="wcard">
           <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
           <h4>NOC 24/7</h4>
           <p>Monitoreo continuo, alertas automáticas y reportes de uso en tiempo real.</p>
         </div>
       </div>
     </div>
-    <div class="map-wrap fade-up d3">
-      <div class="map-visual">
-        <div class="map-label">COBERTURA</div>
-        <div class="map-dot" style="top:35%;left:48%"></div>
-        <div class="map-dot" style="top:55%;left:38%;animation-delay:.5s"></div>
-        <div class="map-dot" style="top:45%;left:60%;animation-delay:1s"></div>
-        <div class="map-dot" style="top:65%;left:55%;animation-delay:1.5s"></div>
-        <div class="map-dot" style="top:28%;left:30%;animation-delay:.8s"></div>
+    <div class="coverage reveal dl2">
+      <div class="coverage-vis">
+        <div class="cov-label">COBERTURA</div>
+        <div class="node" style="top:34%;left:46%"></div>
+        <div class="node" style="top:54%;left:36%;animation-delay:.5s"></div>
+        <div class="node" style="top:44%;left:60%;animation-delay:1s"></div>
+        <div class="node" style="top:66%;left:54%;animation-delay:1.5s"></div>
+        <div class="node" style="top:28%;left:64%;animation-delay:.8s"></div>
+        <div class="node" style="top:60%;left:70%;animation-delay:1.2s"></div>
       </div>
-      <div class="metepec-badge">
-        <div class="metepec-badge-n">EXTERIORES</div>
-        <div class="metepec-badge-l">Sector público y privado</div>
-      </div>
+      <div class="cov-tag"><div class="cov-tag-n">EXTERIORES</div><div class="cov-tag-l">Sector público y privado</div></div>
     </div>
   </div>
 </section>
 
 <!-- OMV -->
 <section id="omv">
-  <div class="omv-inner">
-    <div class="omv-visual fade-up">
-      <div class="omv-phone-top">
-        <span>Shark Mobile</span>
-        <div class="omv-signal">
-          <div class="signal-bar" style="height:6px;background:var(--red)"></div>
-          <div class="signal-bar" style="height:10px;background:var(--red)"></div>
-          <div class="signal-bar" style="height:14px;background:var(--red)"></div>
-          <div class="signal-bar" style="height:18px;background:var(--red)"></div>
-          <div class="signal-bar" style="height:22px;background:rgba(232,25,44,.3)"></div>
+  <div class="feat">
+    <div class="reveal">
+      <div class="device">
+        <div class="device-top">
+          <div class="net">Shark Mobile<small>RED NACIONAL</small></div>
+          <div class="bars">
+            <i style="height:7px;background:var(--red)"></i>
+            <i style="height:11px;background:var(--red)"></i>
+            <i style="height:15px;background:var(--red)"></i>
+            <i style="height:19px;background:var(--red)"></i>
+            <i style="height:23px;background:rgba(255,35,54,.3)"></i>
+          </div>
         </div>
-      </div>
-      <div class="omv-plan">
-        <div class="omv-plan-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
-        <div><div class="omv-plan-name">Plan Básico</div><div class="omv-plan-data">5 GB · Llamadas ilimitadas</div></div>
-        <div class="omv-plan-price">$99</div>
-      </div>
-      <div class="omv-plan">
-        <div class="omv-plan-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"/></svg></div>
-        <div><div class="omv-plan-name">Plan Pro</div><div class="omv-plan-data">20 GB · Voz + SMS ilimitado</div></div>
-        <div class="omv-plan-price">$199</div>
-      </div>
-      <div class="omv-plan" style="border-color:rgba(232,25,44,.4)">
-        <div class="omv-plan-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-        <div><div class="omv-plan-name">Business</div><div class="omv-plan-data">Ilimitado · Múltiples líneas</div></div>
-        <div class="omv-plan-price">$499</div>
+        <div class="plan">
+          <div class="plan-ic"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+          <div class="plan-info"><div class="nm">Básico</div><div class="dt">5 GB · Llamadas ilimitadas</div></div>
+          <div class="plan-price">$99<small>/mes</small></div>
+        </div>
+        <div class="plan">
+          <div class="plan-ic"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"/><path d="M14.05 2a9 9 0 0 1 8 7.94"/></svg></div>
+          <div class="plan-info"><div class="nm">Pro</div><div class="dt">20 GB · Voz + SMS ilimitado</div></div>
+          <div class="plan-price">$199<small>/mes</small></div>
+        </div>
+        <div class="plan hot">
+          <div class="plan-ic"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div class="plan-info"><div class="nm">Business</div><div class="dt">Ilimitado · Múltiples líneas</div></div>
+          <div class="plan-price">$499<small>/mes</small></div>
+        </div>
       </div>
     </div>
-    <div class="omv-text fade-up d2">
-      <div class="eyebrow">Operador OMV México</div>
-      <h2 class="h2">Tu propio<br>operador <em>móvil</em><br>en México</h2>
-      <p class="muted">Shark Broadcast opera como MVNO (Operador Móvil Virtual) en México, ofreciendo telefonía celular, datos 4G/5G y SMS. Planes para usuarios finales y soluciones B2B para empresas.</p>
-      <div class="omv-perks">
-        <div class="omv-perk">
-          <div class="omv-perk-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <div><div class="omv-perk-title">Red 4G/5G Nacional</div><div class="omv-perk-desc">Cobertura usando infraestructura del carrier host con velocidades 4G/5G en todo México.</div></div>
+    <div class="feat-text reveal dl2">
+      <span class="kicker">Operador OMV México</span>
+      <h2 class="display">Tu propio operador<br><span class="accent">móvil</span></h2>
+      <p class="lede">Shark Broadcast opera como MVNO en México, ofreciendo telefonía celular, datos 4G/5G y SMS. Planes para usuarios finales y soluciones B2B para empresas.</p>
+      <div class="perks">
+        <div class="perk">
+          <div class="perk-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="perk-tx"><h4>Red 4G/5G Nacional</h4><p>Cobertura usando infraestructura del carrier host con velocidades 4G/5G en todo México.</p></div>
         </div>
-        <div class="omv-perk">
-          <div class="omv-perk-icon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
-          <div><div class="omv-perk-title">Planes Flexibles</div><div class="omv-perk-desc">Paquetes personalizables para consumidores, empresas y distribuidores mayoristas.</div></div>
+        <div class="perk">
+          <div class="perk-ic"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+          <div class="perk-tx"><h4>Planes Flexibles</h4><p>Paquetes personalizables para consumidores, empresas y distribuidores mayoristas.</p></div>
         </div>
-        <div class="omv-perk">
-          <div class="omv-perk-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-          <div><div class="omv-perk-title">Portabilidad Numérica</div><div class="omv-perk-desc">Proceso rápido y sin complicaciones. El cliente conserva su número existente.</div></div>
+        <div class="perk">
+          <div class="perk-ic"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div class="perk-tx"><h4>Portabilidad Numérica</h4><p>Proceso rápido y sin complicaciones. El cliente conserva su número existente.</p></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FTTH + SAT -->
+<!-- INFRA -->
 <section id="infra">
-  <div class="eyebrow fade-up">Infraestructura</div>
-  <h2 class="h2 fade-up d1" style="margin-top:16px;margin-bottom:14px">FTTH &amp; Satélite —<br><em>internet en cualquier lugar</em></h2>
-  <p class="muted fade-up d2" style="max-width:620px">Conectividad de banda ancha mediante fibra óptica hasta el hogar y soluciones satelitales para zonas rurales donde la infraestructura terrestre no llega.</p>
-  <div class="infra-grid">
-    <div class="infra-card fade-up d1">
-      <div class="infra-card-bg"></div>
-      <svg class="main-ic" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      <h3>FTTH — Fibra al Hogar</h3>
-      <p class="cat">Fiber to the Home</p>
-      <p>Redes de fibra óptica pasiva (GPON/XGS-PON) para internet de ultra alta velocidad en hogares, edificios y empresas. Velocidades simétricas desde 100 Mbps hasta 10 Gbps.</p>
-      <div class="infra-specs">
-        <div class="infra-spec">Arquitectura GPON / XGS-PON</div>
-        <div class="infra-spec">Velocidades simétricas hasta 10 Gbps</div>
-        <div class="infra-spec">Despliegue aéreo o subterráneo</div>
-        <div class="infra-spec">NOC centralizado y monitoreo 24/7</div>
-        <div class="infra-spec">Integración con plataformas OSS/BSS</div>
-      </div>
+  <div class="wrap">
+    <div class="infra-head">
+      <span class="kicker reveal">Infraestructura</span>
+      <h2 class="display reveal dl1">FTTH &amp; Satélite —<br><span class="accent">internet</span> en cualquier lugar</h2>
+      <p class="lede reveal dl2">Banda ancha mediante fibra óptica hasta el hogar y soluciones satelitales para zonas rurales donde la infraestructura terrestre no llega.</p>
     </div>
-    <div class="infra-card fade-up d2">
-      <div class="infra-card-bg"></div>
-      <svg class="main-ic" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      <h3>Conectividad Satelital</h3>
-      <p class="cat">VSAT · LEO · GEO</p>
-      <p>Internet satelital para comunidades rurales, sitios remotos y aplicaciones críticas. Integración con tecnologías GEO y constelaciones LEO de baja latencia.</p>
-      <div class="infra-specs">
-        <div class="infra-spec">Constelaciones LEO — baja latencia</div>
-        <div class="infra-spec">VSAT para sitios remotos y misión crítica</div>
-        <div class="infra-spec">Cobertura rural y comunidades indígenas</div>
-        <div class="infra-spec">SLA garantizado con soporte dedicado</div>
-        <div class="infra-spec">Soluciones para gobiernos y emergencias</div>
-      </div>
+    <div class="infra-grid">
+      <article class="icard reveal dl1">
+        <div class="icard-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <h3>FTTH — Fibra al Hogar</h3>
+        <div class="tag-cat">Fiber to the Home</div>
+        <p>Redes de fibra óptica pasiva (GPON/XGS-PON) para internet de ultra alta velocidad en hogares, edificios y empresas. Velocidades simétricas desde 100 Mbps hasta 10 Gbps.</p>
+        <div class="ispecs">
+          <div class="ispec"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Arquitectura GPON / XGS-PON</div>
+          <div class="ispec"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Velocidades simétricas hasta 10 Gbps</div>
+          <div class="ispec"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Despliegue aéreo o subterráneo</div>
+          <div class="ispec"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>NOC centralizado y monitoreo 24/7</div>
+          <div class="ispec"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Integración con plataformas OSS/BSS</div>
+        </div>
+      </article>
+      <article class="icard reveal dl2">
+        <div class="icard-ico"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <h3>Conectividad Satelital</h3>
+        <div class="tag-cat">VSAT · LEO · GEO</div>
+        <p>Internet satelital para comunidades rurales, sitios remotos y aplicaciones críticas. Integración con tecnologías GEO y constelaciones LEO de baja latencia.</p>
+        <div class="ispecs">
+          <div class="ispec"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Constelaciones LEO — baja latencia</div>
+          <div class="ispec"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>VSAT para sitios remotos y misión crítica</div>
+          <div class="ispec"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Cobertura rural y comunidades alejadas</div>
+          <div class="ispec"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>SLA garantizado con soporte dedicado</div>
+          <div class="ispec"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Soluciones para gobiernos y emergencias</div>
+        </div>
+      </article>
     </div>
   </div>
 </section>
 
 <!-- WHY -->
 <section id="why">
-  <div class="why-inner">
+  <div class="why-grid-wrap">
     <div class="why-text">
-      <div class="eyebrow fade-up" style="margin-bottom:20px">¿Por qué Shark?</div>
-      <h2 class="h2 fade-up d1">Una empresa.<br><em>Todo lo que</em><br>necesitas.</h2>
-      <p class="muted fade-up d2" style="margin-top:20px">La ventaja de Shark Broadcast es la integración. No necesitas 5 proveedores distintos para video, streaming, conectividad y telefonía. Lo hacemos todo — y lo hacemos bien.</p>
+      <span class="kicker reveal">¿Por qué Shark?</span>
+      <h2 class="display reveal dl1">Una empresa.<br><span class="accent">Todo</span> lo que necesitas.</h2>
+      <p class="lede reveal dl2">La ventaja de Shark Broadcast es la integración. No necesitas cinco proveedores distintos para video, streaming, conectividad y telefonía. Lo hacemos todo — y lo hacemos bien.</p>
     </div>
-    <div class="why-grid">
-      <div class="why-item fade-up d1">
+    <div class="why-cards">
+      <div class="ycard reveal dl1">
         <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         <h4>99.9% Uptime</h4>
         <p>SLA garantizado con infraestructura redundante y NOC activo las 24 horas.</p>
       </div>
-      <div class="why-item fade-up d2">
+      <div class="ycard reveal dl2">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10"/></svg>
         <h4>Cobertura LATAM</h4>
         <p>Operaciones en México y expansión activa a toda Latinoamérica.</p>
       </div>
-      <div class="why-item fade-up d3">
+      <div class="ycard reveal dl3">
         <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         <h4>Integración Total</h4>
         <p>Video, streaming, WiFi, móvil y fibra en una sola propuesta integrada.</p>
       </div>
-      <div class="why-item fade-up d4">
+      <div class="ycard reveal dl4">
         <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         <h4>Equipo Experto</h4>
         <p>Ingenieros certificados en broadcast, telecomunicaciones y redes IP.</p>
@@ -686,89 +1024,93 @@
 
 <!-- PROCESS -->
 <section id="process">
-  <div class="eyebrow fade-up">Metodología</div>
-  <h2 class="h2 fade-up d1" style="margin-top:16px;margin-bottom:12px">Así trabajamos <em>contigo</em></h2>
-  <p class="muted fade-up d2" style="max-width:540px">Un proceso ágil y transparente que lleva tu proyecto desde la idea hasta la operación en producción.</p>
-  <div class="steps">
-    <div class="step fade-up d1"><div class="step-n">01</div><h4>Diagnóstico</h4><p>Analizamos tus necesidades, infraestructura existente y objetivos para diseñar la solución óptima.</p></div>
-    <div class="step fade-up d2"><div class="step-n">02</div><h4>Propuesta Técnica</h4><p>Diseño detallado de arquitectura, equipamiento, costos y cronograma de implementación.</p></div>
-    <div class="step fade-up d3"><div class="step-n">03</div><h4>Implementación</h4><p>Despliegue de infraestructura, configuración, integración y pruebas con acompañamiento total.</p></div>
-    <div class="step fade-up d4"><div class="step-n">04</div><h4>Operación &amp; Soporte</h4><p>Monitoreo continuo, mantenimiento preventivo y soporte técnico para máximo uptime.</p></div>
+  <div class="wrap">
+    <div class="proc-head">
+      <span class="kicker reveal">Metodología</span>
+      <h2 class="display reveal dl1">Así trabajamos <span class="accent">contigo</span></h2>
+      <p class="lede reveal dl2">Un proceso ágil y transparente que lleva tu proyecto desde la idea hasta la operación en producción.</p>
+    </div>
+    <div class="proc-steps">
+      <div class="pstep reveal dl1"><div class="pstep-n">01</div><h4>Diagnóstico</h4><p>Analizamos tus necesidades, infraestructura existente y objetivos para diseñar la solución óptima.</p></div>
+      <div class="pstep reveal dl2"><div class="pstep-n">02</div><h4>Propuesta</h4><p>Diseño detallado de arquitectura, equipamiento, costos y cronograma de implementación.</p></div>
+      <div class="pstep reveal dl3"><div class="pstep-n">03</div><h4>Implementación</h4><p>Despliegue de infraestructura, configuración, integración y pruebas con acompañamiento.</p></div>
+      <div class="pstep reveal dl4"><div class="pstep-n">04</div><h4>Operación</h4><p>Monitoreo continuo, mantenimiento preventivo y soporte técnico para máximo uptime.</p></div>
+    </div>
   </div>
 </section>
 
 <!-- CTA -->
 <section id="cta">
-  <div class="cta-radial"></div>
-  <div class="cta-lines"></div>
-  <div class="cta-inner">
-    <div class="eyebrow fade-up">¿Listo para conectar?</div>
-    <h2 class="h2 fade-up d1" style="margin-bottom:18px">Tu proyecto de <em>video,</em><br><em>telecom o conectividad</em><br>empieza aquí.</h2>
-    <p class="muted fade-up d2">Cuéntanos qué necesitas. En menos de 24 horas tendrás una propuesta técnica y comercial a la medida.</p>
-    <div class="cta-btns fade-up d3">
-      <a href="#contact" class="btn btn-red">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.61 4.9 2 2 0 0 1 3.6 2.7h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 10a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 17z"/></svg>
+  <div class="glow-c"></div>
+  <div class="grid-c"></div>
+  <div class="cta-box">
+    <span class="kicker reveal">¿Listo para conectar?</span>
+    <h2 class="display reveal dl1">Tu proyecto<br>empieza <span class="accent">aquí.</span></h2>
+    <p class="lede reveal dl2">Video, telecom o conectividad — cuéntanos qué necesitas y en menos de 24 horas tendrás una propuesta técnica y comercial a la medida.</p>
+    <div class="cta-actions reveal dl3">
+      <a href="#contact" class="btn btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.61 4.9 2 2 0 0 1 3.6 2.7h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 10a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 17z"/></svg>
         Solicitar Demo
       </a>
-      <a href="mailto:hola@sharkbroadcast.com" class="btn btn-outline">hola@sharkbroadcast.com</a>
+      <a href="mailto:hola@sharkbroadcast.com" class="btn btn-ghost">hola@sharkbroadcast.com</a>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="contact-inner">
-    <div class="contact-left">
-      <div class="eyebrow fade-up">Contáctanos</div>
-      <h2 class="h2 fade-up d1">Hablemos de <em>tu proyecto</em></h2>
-      <p class="muted fade-up d2">Video, OTT/FAST, WiFi para exteriores, OMV, FTTH o satélite — tenemos la solución y el equipo para hacerlo realidad.</p>
-      <div class="c-items fade-up d3">
-        <div class="c-item">
-          <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.61 4.9 2 2 0 0 1 3.6 2.7h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17z"/></svg></div>
-          <div><div class="c-lbl">Teléfono</div><div class="c-val">+52 (55) 1234 5678</div></div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <span class="kicker reveal">Contáctanos</span>
+      <h2 class="display reveal dl1">Hablemos de<br><span class="accent">tu proyecto</span></h2>
+      <p class="lede reveal dl2">Video, OTT/FAST, WiFi para exteriores, OMV, FTTH o satélite — tenemos la solución y el equipo para hacerlo realidad.</p>
+      <div class="cinfo-items reveal dl3">
+        <div class="cinfo">
+          <div class="cinfo-ic"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.61 4.9 2 2 0 0 1 3.6 2.7h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10a16 16 0 0 0 6 6l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17z"/></svg></div>
+          <div><div class="cinfo-l">Teléfono</div><div class="cinfo-v">+52 (55) 1234 5678</div></div>
         </div>
-        <div class="c-item">
-          <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-          <div><div class="c-lbl">Email</div><div class="c-val">hola@sharkbroadcast.com</div></div>
+        <div class="cinfo">
+          <div class="cinfo-ic"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div><div class="cinfo-l">Email</div><div class="cinfo-v">hola@sharkbroadcast.com</div></div>
         </div>
-        <div class="c-item">
-          <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-          <div><div class="c-lbl">Sede</div><div class="c-val">Ciudad de México · México</div></div>
+        <div class="cinfo">
+          <div class="cinfo-ic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="cinfo-l">Sede</div><div class="cinfo-v">Ciudad de México · México</div></div>
         </div>
-        <div class="c-item">
-          <div class="c-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10"/></svg></div>
-          <div><div class="c-lbl">Web</div><div class="c-val">sharkbroadcast.com</div></div>
+        <div class="cinfo">
+          <div class="cinfo-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10"/></svg></div>
+          <div><div class="cinfo-l">Web</div><div class="cinfo-v">sharkbroadcast.com</div></div>
         </div>
       </div>
     </div>
-    <div class="contact-form fade-up d2">
+    <div class="form reveal dl2">
       <div class="form-row">
-        <div class="fg"><label>Nombre</label><input type="text" placeholder="Tu nombre completo"/></div>
-        <div class="fg"><label>Empresa</label><input type="text" placeholder="Nombre de tu empresa"/></div>
+        <div class="field"><label>Nombre</label><input type="text" placeholder="Tu nombre completo"/></div>
+        <div class="field"><label>Empresa</label><input type="text" placeholder="Nombre de tu empresa"/></div>
       </div>
       <div class="form-row">
-        <div class="fg"><label>Email</label><input type="email" placeholder="tu@empresa.com"/></div>
-        <div class="fg"><label>Teléfono</label><input type="tel" placeholder="+52 (55) 0000 0000"/></div>
+        <div class="field"><label>Email</label><input type="email" placeholder="tu@empresa.com"/></div>
+        <div class="field"><label>Teléfono</label><input type="tel" placeholder="+52 (55) 0000 0000"/></div>
       </div>
-      <div class="fg">
+      <div class="field">
         <label>Producto / Servicio de Interés</label>
         <select>
           <option value="" disabled selected>Selecciona un producto</option>
           <option>Video &amp; Broadcast</option>
-          <option>Apps OTT / FAST LATAM</option>
-          <option>Soluciones WiFi para Exteriores</option>
+          <option>OTT / FAST LATAM</option>
+          <option>WiFi para Exteriores</option>
           <option>Operador OMV</option>
           <option>FTTH — Fibra al Hogar</option>
           <option>Conectividad Satelital</option>
           <option>Solución Integral</option>
         </select>
       </div>
-      <div class="fg">
+      <div class="field">
         <label>Cuéntanos sobre tu proyecto</label>
         <textarea placeholder="Describe tu proyecto, alcance, región, plazos y cualquier detalle relevante..."></textarea>
       </div>
-      <button class="submit-btn" onclick="sendForm(this)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <button class="form-submit" onclick="submitForm(this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         Enviar Mensaje
       </button>
     </div>
@@ -777,91 +1119,183 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="foot-main">
-    <div class="foot-brand">
-      <a href="#" class="logo">
-        <svg style="width:30px;height:30px" viewBox="0 0 80 80" fill="none">
-          <defs><linearGradient id="lg2" x1="10" y1="10" x2="70" y2="70" gradientUnits="userSpaceOnUse"><stop stop-color="#ff3344"/><stop offset="1" stop-color="#b0101f"/></linearGradient></defs>
-          <path d="M15 10L68 40L15 70L15 58L44 40L15 22Z" fill="url(#lg2)" opacity=".15"/>
-          <path d="M18 14L65 40L18 66L18 56L46 40L18 24Z" fill="url(#lg2)" opacity=".4"/>
-          <path d="M22 20L60 40L22 60L22 52L48 40L22 28Z" fill="url(#lg2)"/>
-          <path d="M30 30L52 40L30 50Z" fill="rgba(0,0,0,.4)"/>
-        </svg>
-        <div class="logo-text">SHARK<span>Broadcast</span></div>
-      </a>
-      <p>Integraciones de video, apps OTT, redes WiFi, telefonía celular, FTTH y satélite para empresas y gobiernos en LATAM.</p>
-      <div class="foot-social">
-        <a href="#" class="soc"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
-        <a href="#" class="soc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
-        <a href="#" class="soc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-        <a href="#" class="soc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+  <div class="foot-wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a href="#hero" class="brand">
+          <svg class="brand-mark" viewBox="0 0 80 80" fill="none" style="width:34px;height:34px">
+            <defs><linearGradient id="bf" x1="12" y1="12" x2="68" y2="68" gradientUnits="userSpaceOnUse"><stop stop-color="#ff3a4c"/><stop offset="1" stop-color="#8f0a16"/></linearGradient></defs>
+            <path d="M15 10L68 40L15 70L15 58L44 40L15 22Z" fill="url(#bf)" opacity=".15"/>
+            <path d="M18 14L65 40L18 66L18 56L46 40L18 24Z" fill="url(#bf)" opacity=".4"/>
+            <path d="M22 20L60 40L22 60L22 52L48 40L22 28Z" fill="url(#bf)"/>
+            <path d="M30 30L52 40L30 50Z" fill="rgba(0,0,0,.45)"/>
+          </svg>
+          <div class="brand-name">SHARK<span>Broadcast</span></div>
+        </a>
+        <p>Integraciones de video, apps OTT, WiFi para exteriores, telefonía celular, FTTH y satélite para empresas y gobiernos en LATAM.</p>
+        <div class="foot-social">
+          <a href="#" class="fsoc" aria-label="X"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+          <a href="#" class="fsoc" aria-label="YouTube"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+          <a href="#" class="fsoc" aria-label="LinkedIn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" class="fsoc" aria-label="Instagram"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        </div>
+      </div>
+      <div class="fcol">
+        <h5>Video &amp; OTT</h5>
+        <ul>
+          <li><a href="#products">Broadcast en Vivo</a></li>
+          <li><a href="#products">Producción</a></li>
+          <li><a href="#ott">OTT FAST LATAM</a></li>
+          <li><a href="#ott">Apps Smart TV</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h5>Conectividad</h5>
+        <ul>
+          <li><a href="#wifi">WiFi para Exteriores</a></li>
+          <li><a href="#wifi">Smart City</a></li>
+          <li><a href="#infra">FTTH — Fibra</a></li>
+          <li><a href="#infra">Satélite VSAT/LEO</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h5>Telecom</h5>
+        <ul>
+          <li><a href="#omv">Operador OMV</a></li>
+          <li><a href="#omv">Planes de Datos</a></li>
+          <li><a href="#omv">Empresarial</a></li>
+          <li><a href="#omv">MVNO Mayorista</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h5>Empresa</h5>
+        <ul>
+          <li><a href="#why">Nosotros</a></li>
+          <li><a href="#process">Metodología</a></li>
+          <li><a href="#contact">Contacto</a></li>
+          <li><a href="mailto:hola@sharkbroadcast.com">Email</a></li>
+        </ul>
       </div>
     </div>
-    <div class="foot-col">
-      <h4>Video &amp; OTT</h4>
-      <ul>
-        <li><a href="#products">Broadcast en Vivo</a></li>
-        <li><a href="#products">Producción Audiovisual</a></li>
-        <li><a href="#ott">OTT FAST LATAM</a></li>
-        <li><a href="#ott">Apps Smart TV</a></li>
-        <li><a href="#ott">Plataformas VOD</a></li>
-      </ul>
+    <div class="foot-bottom">
+      <span>© 2025 Shark Broadcast. Todos los derechos reservados.</span>
+      <span>Telecom · Video · OTT · WiFi · FTTH · Satélite</span>
     </div>
-    <div class="foot-col">
-      <h4>Conectividad</h4>
-      <ul>
-        <li><a href="#connectivity">WiFi para Exteriores</a></li>
-        <li><a href="#connectivity">Smart City</a></li>
-        <li><a href="#infra">FTTH — Fibra</a></li>
-        <li><a href="#infra">Satélite VSAT/LEO</a></li>
-      </ul>
-    </div>
-    <div class="foot-col">
-      <h4>Telecom</h4>
-      <ul>
-        <li><a href="#omv">Operador OMV</a></li>
-        <li><a href="#omv">Planes de Datos</a></li>
-        <li><a href="#omv">Telefonía Empresarial</a></li>
-        <li><a href="#omv">MVNO Mayorista</a></li>
-      </ul>
-    </div>
-    <div class="foot-col">
-      <h4>Empresa</h4>
-      <ul>
-        <li><a href="#why">Nosotros</a></li>
-        <li><a href="#process">Metodología</a></li>
-        <li><a href="#contact">Contacto</a></li>
-        <li><a href="mailto:hola@sharkbroadcast.com">hola@sharkbroadcast.com</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="foot-bottom">
-    <span>© 2025 Shark Broadcast. Todos los derechos reservados.</span>
-    <span>Telecom · Video · OTT · WiFi · FTTH · Satélite</span>
   </div>
 </footer>
 
+<button id="toTop" aria-label="Volver arriba">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
 <script>
   const nav = document.getElementById('nav');
-  addEventListener('scroll', () => nav.classList.toggle('sc', scrollY > 40));
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+  addEventListener('scroll', () => nav.classList.toggle('sc', scrollY > 40), { passive: true });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Mobile menu
+  const toggle = document.getElementById('navToggle');
+  const panel = document.getElementById('mobilePanel');
+  toggle.addEventListener('click', () => panel.classList.toggle('open'));
+  panel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => panel.classList.remove('open')));
+
+  // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const t = document.querySelector(a.getAttribute('href'));
-      if(t){ e.preventDefault(); t.scrollIntoView({ behavior:'smooth' }); }
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
     });
   });
-  function sendForm(btn) {
-    btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> ¡Mensaje Enviado!`;
-    btn.style.background='#16a34a'; btn.style.pointerEvents='none';
-    setTimeout(() => {
-      btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Enviar Mensaje`;
-      btn.style.background='var(--red)'; btn.style.pointerEvents='';
-    }, 3000);
+
+  function submitForm(btn) {
+    const original = btn.innerHTML;
+    btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> ¡Mensaje Enviado!';
+    btn.style.background = '#16a34a';
+    btn.style.pointerEvents = 'none';
+    setTimeout(() => { btn.innerHTML = original; btn.style.background = ''; btn.style.pointerEvents = ''; }, 3000);
   }
+  /* ── Cinematic loader ── */
+  (function(){
+    const l = document.getElementById('loader');
+    if (!l) return;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || sessionStorage.getItem('shark-intro')) { l.remove(); return; }
+    sessionStorage.setItem('shark-intro','1');
+    document.documentElement.style.overflow = 'hidden';
+    setTimeout(() => {
+      l.classList.add('done');
+      document.documentElement.style.overflow = '';
+      setTimeout(() => l.remove(), 900);
+    }, 1700);
+  })();
+
+  /* ── Scroll progress ── */
+  const progress = document.getElementById('progress');
+  addEventListener('scroll', () => {
+    const h = document.documentElement;
+    progress.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+  }, { passive: true });
+
+  /* ── Metric counters ── */
+  const cObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      cObs.unobserve(e.target);
+      const el = e.target, target = +el.dataset.count, suf = el.dataset.suffix || '';
+      const t0 = performance.now(), dur = 1500;
+      const tick = now => {
+        const p = Math.min((now - t0) / dur, 1);
+        el.textContent = Math.round((1 - Math.pow(1 - p, 3)) * target) + suf;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: .5 });
+  document.querySelectorAll('.metric-n[data-count]').forEach(c => cObs.observe(c));
+
+  /* ── Nav active section ── */
+  const navLinks = [...document.querySelectorAll('.nav-menu a')];
+  const linkMap = {};
+  navLinks.forEach(l => linkMap[l.getAttribute('href')] = l);
+  const secObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      const link = linkMap['#' + e.target.id];
+      if (link && e.isIntersecting) {
+        navLinks.forEach(x => x.classList.remove('on'));
+        link.classList.add('on');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  document.querySelectorAll('section[id]').forEach(s => secObs.observe(s));
+
+  /* ── Hero glow parallax ── */
+  const g1 = document.querySelector('.hero-atmos .glow1');
+  const g2 = document.querySelector('.hero-atmos .glow2');
+  addEventListener('mousemove', e => {
+    const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
+    if (g1) g1.style.transform = `translateX(calc(-50% + ${x*34}px)) translateY(${y*22}px)`;
+    if (g2) g2.style.transform = `translate(${x*-26}px, ${y*-18}px)`;
+  }, { passive: true });
+
+  /* ── Magnetic buttons ── */
+  document.querySelectorAll('.btn-primary, .nav-action').forEach(b => {
+    b.addEventListener('mousemove', e => {
+      const r = b.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width/2) / r.width;
+      const y = (e.clientY - r.top - r.height/2) / r.height;
+      b.style.transform = `translate(${x*7}px, ${y*7 - 2}px)`;
+    });
+    b.addEventListener('mouseleave', () => { b.style.transform = ''; });
+  });
+
+  /* ── Back to top ── */
+  const toTop = document.getElementById('toTop');
+  addEventListener('scroll', () => toTop.classList.toggle('show', scrollY > 650), { passive: true });
+  toTop.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
 </script>
 </body>
 </html>
